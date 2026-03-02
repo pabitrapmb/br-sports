@@ -8,7 +8,7 @@ export default function Sponsors() {
       <div className="w-14 h-1 bg-gradient-to-r from-[#f5a623] to-red-500 rounded-full mx-auto mb-10" />
 
       <div className="inline-block border-2 border-[#f5a623]/40 rounded-2xl px-16 py-7 bg-[#f5a623]/[0.06] mb-3">
-        <p className="font-bebas text-[#f5a623] text-4xl tracking-widest">Paranjape Schemes</p>
+        <p className="font-bebas text-[#f5a623] text-4xl tracking-widest">Blueridge Residents</p>
       </div>
       <p className="text-gray-500 text-sm mb-12">
         Title Sponsor – Blue Ridge Champions Trophy 2026
