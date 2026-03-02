@@ -29,7 +29,7 @@ type MediaItem = { type: string; src: string; season: string; caption: string };
 const seasons = ["All", ...Array.from(new Set(media.map((m) => m.season)))];
 
 export default function Gallery() {
-  const [active, setActive]   = useState("All");
+  const [active, setActive]    = useState("All");
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
 
   const filtered = active === "All" ? media : media.filter((m) => m.season === active);
@@ -73,7 +73,6 @@ export default function Gallery() {
             onClick={() => setLightbox(item as MediaItem)}
           >
             {item.type === "video" ? (
-              /* ── Video thumbnail ── */
               <>
                 <video
                   src={item.src}
@@ -82,7 +81,6 @@ export default function Gallery() {
                   playsInline
                   onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = "none"; }}
                 />
-                {/* Play badge */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-12 h-12 rounded-full bg-black/60 border-2 border-white/80 flex items-center justify-center">
                     <span className="text-white text-xl ml-1">▶</span>
@@ -90,7 +88,6 @@ export default function Gallery() {
                 </div>
               </>
             ) : (
-              /* ── Image thumbnail ── */
               <img
                 src={item.src}
                 alt={item.caption || item.season}
@@ -98,13 +95,6 @@ export default function Gallery() {
                 onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
               />
             )}
-
-            {/* Placeholder when file is missing */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center p-3 pointer-events-none">
-              <span className="text-3xl">{item.type === "video" ? "🎬" : "📸"}</span>
-              <span className="text-[#f5a623] text-[10px] font-bold uppercase tracking-widest">{item.season}</span>
-              {item.caption && <span className="text-gray-400 text-[10px]">{item.caption}</span>}
-            </div>
 
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 p-3">
