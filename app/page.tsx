@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Sports from "./components/Sports";
+import Gallery from "./components/Gallery";
 import Contacts from "./components/Contacts";
 import Community from "./components/Community";
 import Sponsors from "./components/Sponsors";
@@ -15,6 +16,7 @@ export default function Home() {
         <Hero />
         <About />
         <Sports />
+        <Gallery />
         <Contacts />
         <Community />
         <Sponsors />

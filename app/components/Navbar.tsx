@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const links = [
   { label: "About",     href: "#about" },
   { label: "Sports",    href: "#sports" },
+  { label: "Gallery",   href: "#gallery" },
   { label: "Contacts",  href: "#contacts" },
   { label: "Community", href: "#community" },
   { label: "Sponsors",  href: "#sponsors" },
@@ -24,7 +25,7 @@ export default function Navbar() {
     setOpen(false);
     const el = document.querySelector(href);
     if (el) {
-      const y = (el as HTMLElement).offsetTop - 64;
+      const y = el.getBoundingClientRect().top + window.scrollY - 64;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
