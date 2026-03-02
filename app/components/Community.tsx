@@ -15,12 +15,16 @@ export default function Community() {
         </p>
 
         {/* QR placeholder */}
-        <div className="w-40 h-40 mx-auto mb-5 bg-white rounded-2xl flex items-center justify-center text-center p-4">
+        {/* <div className="w-40 h-40 mx-auto mb-5 bg-white rounded-2xl flex items-center justify-center text-center p-4">
           <p className="text-gray-700 text-xs font-bold leading-snug">
             📱 Scan the QR Code<br />from the event flyer<br />to join the<br />WhatsApp Group
           </p>
-        </div>
-
+        </div> */}
+        <img
+          src="/qr-code.png"
+          alt="WhatsApp QR Code"
+          className="w-40 h-40 mx-auto mb-5 rounded-2xl"
+        />
         <p className="text-gray-500 text-xs mb-6">
           Further registration details and schedules will be shared in the community group soon.
         </p>
