@@ -6,7 +6,7 @@ const contacts = [
   { sport: "Badminton | TT",        name: "Soham",    phone: "97555 52414", emoji: "🏸", accent: "#00b4d8" },
   { sport: "Badminton | TT",        name: "Prashant", phone: "91600 55003", emoji: "🏓", accent: "#00b4d8" },
   { sport: "Carrom | Chess",        name: "Manoj",    phone: "97730 22017", emoji: "♟",  accent: "#7b2d8b" },
-  { sport: "Carrom | Chess",        name: "Bhaskar",  phone: "77200 32006", emoji: "🎯", accent: "#7b2d8b" },
+  { sport: "Carrom | Chess",        name: "Bhaskar",  phone: "77200 32006", emoji: "🎱", accent: "#7b2d8b" },
   { sport: "Running | Cycling",     name: "Satilal",  phone: "99224 59784", emoji: "🚴", accent: "#2dc653" },
   { sport: "Running | Cycling",     name: "Abhishek", phone: "99308 44415", emoji: "🏃", accent: "#2dc653" },
   { sport: "Cricket",               name: "Rohan",    phone: "99607 59184", emoji: "🏏", accent: "#f5a623" },

@@ -7,7 +7,7 @@ export default function Hero() {
     { label: "🏸 Badminton",     cls: "border-cyan-400  text-cyan-400  bg-cyan-400/10" },
     { label: "🏓 Table Tennis",  cls: "border-[#f5a623] text-[#f5a623] bg-[#f5a623]/10" },
     { label: "♟ Chess",          cls: "border-purple-500 text-purple-400 bg-purple-500/10" },
-    { label: "🎯 Carrom",        cls: "border-red-400   text-red-400   bg-red-400/10" },
+    { label: "🎱 Carrom",        cls: "border-red-400   text-red-400   bg-red-400/10" },
     { label: "🚴 Cycling",       cls: "border-blue-400  text-blue-400  bg-blue-400/10" },
     { label: "🏃 Mini Marathon", cls: "border-green-400 text-green-400 bg-green-400/10" },
     { label: "🥏 Pickleball",    cls: "border-[#f5a623] text-[#f5a623] bg-[#f5a623]/10" },
