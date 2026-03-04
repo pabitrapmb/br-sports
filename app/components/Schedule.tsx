@@ -16,6 +16,7 @@ type Event = {
   rules?: string[];
   contacts?: { name: string; phone: string }[];
   whatsapp?: string;
+  registrationUrl?: string; // 👈 Paste your Google Form link here for each sport
 };
 
 const events: Event[] = [
@@ -46,6 +47,7 @@ const events: Event[] = [
       { name: "Prashant", phone: "91600 55003" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+    registrationUrl: "https://forms.gle/REPLACE_WITH_BADMINTON_FORM_LINK",
   },
   {
     sport: "Table Tennis",
@@ -74,6 +76,7 @@ const events: Event[] = [
       { name: "Soham", phone: "97555 52414" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+    registrationUrl: "https://forms.gle/REPLACE_WITH_TT_FORM_LINK",
   },
   {
     sport: "Chess",
@@ -95,6 +98,7 @@ const events: Event[] = [
       { name: "Bhaskar", phone: "77200 32006" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+    registrationUrl: "https://forms.gle/REPLACE_WITH_CHESS_FORM_LINK",
   },
   {
     sport: "Carrom",
@@ -116,6 +120,7 @@ const events: Event[] = [
       { name: "Bhaskar", phone: "77200 32006" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+    registrationUrl: "https://forms.gle/REPLACE_WITH_CARROM_FORM_LINK",
   },
   { sport: "Cricket",       emoji: "🏏", accent: "#2dc653", status: "soon" },
   { sport: "Football",      emoji: "⚽", accent: "#e63946", status: "soon" },
@@ -141,7 +146,7 @@ function EventCard({ event }: { event: Event }) {
     );
   }
 
-  // ✅ This id is what Sports.tsx uses to scroll & auto-open the card
+  // This id is what Sports.tsx uses to scroll & auto-open the card
   const cardId = "event-" + event.sport.toLowerCase().replace(/\s+/g, "-");
 
   return (
@@ -197,7 +202,7 @@ function EventCard({ event }: { event: Event }) {
             </div>
           )}
 
-          {/* Categories & Fees side by side */}
+          {/* Categories & Fees */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {event.categories && (
               <div>
@@ -239,6 +244,22 @@ function EventCard({ event }: { event: Event }) {
                   </li>
                 ))}
               </ul>
+            </div>
+          )}
+
+          {/* 🎯 Register Now Button */}
+          {event.registrationUrl && (
+            <div className="pt-1">
+              <a
+                href={event.registrationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white transition hover:scale-105 hover:opacity-90 active:scale-100 shadow-lg"
+                style={{ background: `linear-gradient(135deg, ${event.accent}, ${event.accent}cc)` }}
+              >
+                📋 Register Now →
+              </a>
+              <p className="text-[10px] text-gray-500 mt-2 ml-1">Opens Google Form in a new tab</p>
             </div>
           )}
 
@@ -285,7 +306,7 @@ export default function Schedule() {
       </h2>
       <div className="w-14 h-1 bg-gradient-to-r from-[#f5a623] to-red-500 rounded-full mx-auto mb-5" />
       <p className="text-gray-400 text-center text-sm mb-14 max-w-xl mx-auto">
-        Click on any event to see full details, rules, fees and contacts.
+        Click on any event to see full details, rules, fees and register.
       </p>
 
       <div className="max-w-3xl mx-auto space-y-4">
