@@ -16,7 +16,7 @@ type Event = {
   rules?: string[];
   contacts?: { name: string; phone: string }[];
   whatsapp?: string;
-  registrationUrl?: string; // 👈 Paste your Google Form link here for each sport
+  registrationUrl?: string;
 };
 
 const events: Event[] = [
@@ -134,160 +134,205 @@ function EventCard({ event }: { event: Event }) {
 
   if (event.status === "soon") {
     return (
-      <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-6 flex items-center gap-4">
-        <span className="text-4xl">{event.emoji}</span>
-        <div>
-          <p className="font-bold text-white text-base">{event.sport}</p>
-          <span className="inline-block mt-1 px-3 py-0.5 rounded-full bg-white/10 text-gray-400 text-[10px] font-bold uppercase tracking-widest">
+      <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-5
+                      flex items-center gap-4 hover:border-white/20 hover:bg-white/[0.04]
+                      transition-all duration-300 group">
+        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl flex-shrink-0
+                        transition-all duration-300"
+             style={{ background: event.accent + "12" }}>
+          {event.emoji}
+        </div>
+        <div className="flex-1">
+          <p className="font-bold text-white/80 text-sm">{event.sport}</p>
+          <span className="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest"
+                style={{ background: event.accent + "18", color: event.accent + "aa" }}>
             Schedule Coming Soon
           </span>
         </div>
+        <div className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse"
+             style={{ background: event.accent + "70" }} />
       </div>
     );
   }
 
-  // This id is what Sports.tsx uses to scroll & auto-open the card
   const cardId = "event-" + event.sport.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <div
       id={cardId}
-      className="rounded-2xl border border-white/10 bg-white/[0.03] overflow-hidden transition-all duration-300"
-      style={{ borderColor: open ? event.accent + "60" : undefined }}
+      className="rounded-2xl overflow-hidden transition-all duration-300"
+      style={{
+        background: open
+          ? `linear-gradient(145deg, ${event.accent}10 0%, rgba(255,255,255,0.02) 100%)`
+          : "rgba(255,255,255,0.025)",
+        border: `1px solid ${open ? event.accent + "55" : "rgba(255,255,255,0.08)"}`,
+        boxShadow: open ? `0 8px 40px ${event.accent}18` : "none",
+      }}
     >
-      {/* Card header — always visible */}
-      <button
-        className="w-full text-left p-6 flex items-center gap-4"
-        onClick={() => setOpen(!open)}
-      >
-        <div
-          className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl flex-shrink-0"
-          style={{ background: event.accent + "20" }}
-        >
-          {event.emoji}
-        </div>
+      <div className="flex">
+        {/* Left accent bar */}
+        <div className="w-[3px] flex-shrink-0 transition-all duration-500 rounded-l-2xl"
+             style={{ background: open ? `linear-gradient(to bottom, ${event.accent}, ${event.accent}44)` : "transparent" }} />
+
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-white text-lg leading-tight">{event.sport}</p>
-          {event.subtitle && (
-            <p
-              className="text-xs font-semibold tracking-widest uppercase mt-0.5"
-              style={{ color: event.accent }}
-            >
-              {event.subtitle}
-            </p>
-          )}
-          <div className="flex flex-wrap gap-3 mt-2 text-xs text-gray-400">
-            {event.date && <span>📅 {event.date}</span>}
-            {event.time && <span>⏰ {event.time}</span>}
-          </div>
-        </div>
-        {/* Expand arrow */}
-        <span
-          className="text-gray-500 text-xl transition-transform duration-300 flex-shrink-0"
-          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
-        >
-          ▾
-        </span>
-      </button>
-
-      {/* Expanded details */}
-      {open && (
-        <div className="px-6 pb-6 border-t border-white/[0.06] pt-5 space-y-5">
-
-          {/* Venue */}
-          {event.venue && (
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">📍 Venue</p>
-              <p className="text-white text-sm">{event.venue}</p>
+          {/* Header row */}
+          <button className="w-full text-left px-5 py-5 flex items-center gap-4"
+                  onClick={() => setOpen(!open)}>
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl flex-shrink-0 transition-all duration-300"
+                 style={{
+                   background: event.accent + "1a",
+                   boxShadow: open ? `0 0 24px ${event.accent}35` : "none",
+                 }}>
+              {event.emoji}
             </div>
-          )}
 
-          {/* Categories & Fees */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {event.categories && (
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Categories</p>
-                <div className="flex flex-wrap gap-2">
-                  {event.categories.map((c) => (
-                    <span
-                      key={c}
-                      className="px-3 py-1 rounded-full text-xs font-semibold border"
-                      style={{ borderColor: event.accent + "60", color: event.accent, background: event.accent + "15" }}
-                    >
-                      {c}
-                    </span>
-                  ))}
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-white text-lg leading-tight">{event.sport}</p>
+              {event.subtitle && (
+                <p className="text-[11px] font-semibold tracking-widest uppercase mt-0.5"
+                   style={{ color: event.accent }}>
+                  {event.subtitle}
+                </p>
+              )}
+              <div className="flex flex-wrap gap-2 mt-2.5">
+                {event.date && (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium text-gray-400"
+                        style={{ background: "rgba(255,255,255,0.05)" }}>
+                    📅 {event.date}
+                  </span>
+                )}
+                {event.time && (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium text-gray-400"
+                        style={{ background: "rgba(255,255,255,0.05)" }}>
+                    ⏰ {event.time}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Chevron button */}
+            <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                 style={{
+                   background: open ? event.accent + "22" : "rgba(255,255,255,0.06)",
+                   transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                 }}>
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M2.5 4.5l4 4 4-4" stroke={open ? event.accent : "#666"}
+                      strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </button>
+
+          {/* Expanded body */}
+          {open && (
+            <div className="px-5 pb-6 pt-4 space-y-5 border-t border-white/[0.06]">
+
+              {/* Venue */}
+              {event.venue && (
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm"
+                       style={{ background: event.accent + "18" }}>
+                    📍
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[2px] mb-0.5"
+                       style={{ color: event.accent + "99" }}>Venue</p>
+                    <p className="text-white text-sm">{event.venue}</p>
+                  </div>
                 </div>
-              </div>
-            )}
-            {event.fees && (
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Registration Fees</p>
-                {event.fees.map((f) => (
-                  <p key={f.label} className="text-sm text-white">
-                    <span className="text-gray-400">{f.label}: </span>{f.amount}
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
+              )}
 
-          {/* Rules */}
-          {event.rules && (
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Tournament Rules</p>
-              <ul className="space-y-1.5">
-                {event.rules.map((r, i) => (
-                  <li key={i} className="flex gap-2 text-sm text-gray-300">
-                    <span style={{ color: event.accent }} className="mt-0.5 flex-shrink-0">›</span>
-                    {r}
-                  </li>
+              {/* Categories & Fees */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {event.categories && (
+                  <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
+                    <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
+                       style={{ color: event.accent + "99" }}>Categories</p>
+                    <div className="flex flex-wrap gap-2">
+                      {event.categories.map((c) => (
+                        <span key={c} className="px-2.5 py-1 rounded-lg text-xs font-semibold border"
+                              style={{ borderColor: event.accent + "45", color: event.accent, background: event.accent + "12" }}>
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {event.fees && (
+                  <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
+                    <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
+                       style={{ color: event.accent + "99" }}>Registration Fees</p>
+                    <div className="space-y-1.5">
+                      {event.fees.map((f) => (
+                        <p key={f.label} className="text-sm">
+                          <span className="text-gray-500">{f.label}: </span>
+                          <span className="text-white font-semibold">{f.amount}</span>
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Rules */}
+              {event.rules && (
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[2px] mb-3"
+                     style={{ color: event.accent + "99" }}>Tournament Rules</p>
+                  <ul className="space-y-2.5">
+                    {event.rules.map((r, i) => (
+                      <li key={i} className="flex gap-3 text-sm text-gray-300">
+                        <span className="w-5 h-5 rounded-full flex items-center justify-center
+                                         text-[10px] font-bold flex-shrink-0 mt-0.5"
+                              style={{ background: event.accent + "22", color: event.accent }}>
+                          {i + 1}
+                        </span>
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Register button */}
+              {event.registrationUrl && (
+                <div>
+                  <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer"
+                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold
+                                text-white transition-all duration-200 hover:scale-[1.03] hover:brightness-110 active:scale-100"
+                     style={{
+                       background: `linear-gradient(135deg, ${event.accent}, ${event.accent}bb)`,
+                       boxShadow: `0 4px 20px ${event.accent}40`,
+                     }}>
+                    📋 Register Now →
+                  </a>
+                  <p className="text-[10px] text-gray-600 mt-2 ml-1">Opens Google Form in a new tab</p>
+                </div>
+              )}
+
+              {/* Contacts & WhatsApp */}
+              <div className="flex flex-wrap gap-2">
+                {event.contacts?.map((c) => (
+                  <a key={c.name} href={`tel:${c.phone.replace(/\s/g, "")}`}
+                     className="flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-semibold
+                                transition-all duration-200 hover:opacity-80"
+                     style={{ borderColor: event.accent + "45", color: event.accent, background: event.accent + "0d" }}>
+                    📞 {c.name}: {c.phone}
+                  </a>
                 ))}
-              </ul>
+                {event.whatsapp && (
+                  <a href={event.whatsapp} target="_blank" rel="noopener noreferrer"
+                     className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
+                                transition-all duration-200 hover:bg-[#25d366]/20"
+                     style={{ background: "rgba(37,211,102,0.1)", border: "1px solid rgba(37,211,102,0.3)", color: "#25d366" }}>
+                    💬 WhatsApp Group →
+                  </a>
+                )}
+              </div>
             </div>
           )}
-
-          {/* 🎯 Register Now Button */}
-          {event.registrationUrl && (
-            <div className="pt-1">
-              <a
-                href={event.registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white transition hover:scale-105 hover:opacity-90 active:scale-100 shadow-lg"
-                style={{ background: `linear-gradient(135deg, ${event.accent}, ${event.accent}cc)` }}
-              >
-                📋 Register Now →
-              </a>
-              <p className="text-[10px] text-gray-500 mt-2 ml-1">Opens Google Form in a new tab</p>
-            </div>
-          )}
-
-          {/* Contacts & WhatsApp */}
-          <div className="flex flex-wrap gap-3 pt-1">
-            {event.contacts?.map((c) => (
-              <a
-                key={c.name}
-                href={`tel:${c.phone.replace(/\s/g, "")}`}
-                className="flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-semibold transition hover:opacity-80"
-                style={{ borderColor: event.accent + "50", color: event.accent, background: event.accent + "10" }}
-              >
-                📞 {c.name}: {c.phone}
-              </a>
-            ))}
-            {event.whatsapp && (
-              <a
-                href={event.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#25d366]/15 border border-[#25d366]/40 text-[#25d366] text-sm font-semibold transition hover:opacity-80"
-              >
-                WhatsApp Group →
-              </a>
-            )}
-          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -297,32 +342,41 @@ export default function Schedule() {
   const soon      = events.filter((e) => e.status === "soon");
 
   return (
-    <section id="schedule" className="py-24 px-6 bg-[#080808]">
-      <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
-        Season 3
-      </p>
-      <h2 className="font-barlow font-black text-white uppercase text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
-        Event Schedule
-      </h2>
-      <div className="w-14 h-1 bg-gradient-to-r from-[#F0B429] to-red-500 rounded-full mx-auto mb-5" />
-      <p className="text-gray-400 text-center text-sm mb-14 max-w-xl mx-auto">
-        Click on any event to see full details, rules, fees and register.
-      </p>
+    <section id="schedule" className="relative py-24 px-6 bg-[#080808] dot-grid overflow-hidden">
 
-      <div className="max-w-3xl mx-auto space-y-4">
-        {/* Confirmed events */}
-        {confirmed.map((e) => <EventCard key={e.sport} event={e} />)}
+      {/* Top radial glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[280px]
+                      bg-[#F0B429]/5 blur-[100px] rounded-full pointer-events-none" />
 
-        {/* Coming soon divider */}
-        <div className="flex items-center gap-4 py-4">
-          <div className="flex-1 h-px bg-white/10" />
-          <span className="text-xs font-bold uppercase tracking-widest text-gray-500">More Coming Soon</span>
-          <div className="flex-1 h-px bg-white/10" />
-        </div>
+      <div className="relative z-10">
+        <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
+          Season 3
+        </p>
+        <h2 className="font-barlow font-black text-white uppercase text-center
+                       text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
+          Event Schedule
+        </h2>
+        <div className="w-14 h-1 bg-gradient-to-r from-[#F0B429] to-red-500 rounded-full mx-auto mb-5" />
+        <p className="text-gray-400 text-center text-sm mb-14 max-w-xl mx-auto">
+          Click on any event to see full details, rules, fees and register.
+        </p>
 
-        {/* Coming soon sports */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {soon.map((e) => <EventCard key={e.sport} event={e} />)}
+        <div className="max-w-3xl mx-auto space-y-3">
+          {confirmed.map((e) => <EventCard key={e.sport} event={e} />)}
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 py-6">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-white/10" />
+            <span className="text-[10px] font-bold uppercase tracking-[3px] text-gray-600
+                             border border-white/10 rounded-full px-4 py-1.5">
+              More Coming Soon
+            </span>
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-white/10 to-white/10" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {soon.map((e) => <EventCard key={e.sport} event={e} />)}
+          </div>
         </div>
       </div>
     </section>

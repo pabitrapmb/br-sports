@@ -26,15 +26,42 @@ const contacts = [
   { sport: "BR Legends Cricket", name: "Manoj",   phone: "97730 22017", color: "#3a86ff" },
 ];
 
+const sportMeta: Record<string, { emoji: string }> = {
+  "Badminton":           { emoji: "🏸" },
+  "Table Tennis":        { emoji: "🏓" },
+  "Chess":               { emoji: "♟"  },
+  "Carrom":              { emoji: "🎱" },
+  "Cricket":             { emoji: "🏏" },
+  "Football":            { emoji: "⚽" },
+  "Cycling":             { emoji: "🚴" },
+  "Mini Marathon":       { emoji: "🏃" },
+  "BR Legends Cricket":  { emoji: "🏏" },
+};
+
 export default function Contacts() {
+  const grouped = contacts.reduce((acc, c) => {
+    if (!acc[c.sport]) acc[c.sport] = [];
+    acc[c.sport].push(c);
+    return acc;
+  }, {} as Record<string, typeof contacts>);
+
+  const sports = Object.keys(grouped);
+
   return (
-    <section id="contacts" className="py-24 px-6 bg-white">
-      <div className="max-w-5xl mx-auto">
+    <section id="contacts" className="relative py-24 px-6 bg-[#0a0a0a] overflow-hidden">
+
+      {/* Ambient glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[250px]
+                      bg-[#0057B7]/8 blur-[90px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[400px] h-[300px]
+                      bg-[#F0B429]/4 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="relative z-10 max-w-5xl mx-auto">
 
         <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#0057B7] mb-3">
           Need Help?
         </p>
-        <h2 className="font-barlow font-black text-[#050c18] text-center uppercase
+        <h2 className="font-barlow font-black text-white text-center uppercase
                        text-[clamp(2rem,6vw,3.2rem)] tracking-wide mb-4">
           Coordinators
         </h2>
@@ -45,60 +72,62 @@ export default function Contacts() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {contacts.map((c, i) => (
-            <div
-              key={i}
-              className="card-hover bg-white border border-gray-100 rounded-2xl p-5
-                         flex items-center gap-4 shadow-sm"
-            >
-              {/* Avatar */}
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center
-                              text-lg font-black text-white flex-shrink-0"
-                   style={{ background: c.color }}>
-                {c.name !== "TBA" ? c.name[0] : "?"}
-              </div>
+          {sports.map((sport) => {
+            const meta  = sportMeta[sport] ?? { emoji: "🏅" };
+            const color = grouped[sport][0].color;
+            const people = grouped[sport];
 
-              <div className="flex-1 min-w-0">
-                <p className="text-[10px] font-bold uppercase tracking-[2px] mb-0.5"
-                   style={{ color: c.color }}>
-                  {c.sport}
-                </p>
-                <p className="font-bold text-[#050c18] text-sm truncate">{c.name}</p>
-                {c.phone !== "—" ? (
-                  <a
-                    href={`tel:${c.phone.replace(/\s/g, "")}`}
-                    className="text-gray-400 text-xs hover:text-[#0057B7] transition-colors"
-                  >
-                    {c.phone}
-                  </a>
-                ) : (
-                  <p className="text-gray-300 text-xs">To be announced</p>
-                )}
-              </div>
+            return (
+              <div key={sport}
+                   className="rounded-2xl overflow-hidden border border-white/[0.07] transition-all duration-300 hover:border-white/[0.14]"
+                   style={{
+                     background: `linear-gradient(145deg, ${color}0c 0%, rgba(255,255,255,0.02) 100%)`,
+                   }}>
 
-              {c.phone !== "—" && (
-                <a
-                  href={`tel:${c.phone.replace(/\s/g, "")}`}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0
-                             border border-gray-100 hover:border-transparent transition-all duration-200
-                             hover:text-white text-lg"
-                  style={{
-                    color: c.color,
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = c.color;
-                    (e.currentTarget as HTMLElement).style.color = "white";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = "transparent";
-                    (e.currentTarget as HTMLElement).style.color = c.color;
-                  }}
-                >
-                  📞
-                </a>
-              )}
-            </div>
-          ))}
+                {/* Sport header */}
+                <div className="flex items-center gap-3 px-4 py-3.5 border-b border-white/[0.06]"
+                     style={{ borderLeftWidth: "3px", borderLeftStyle: "solid", borderLeftColor: color }}>
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                       style={{ background: color + "20" }}>
+                    {meta.emoji}
+                  </div>
+                  <p className="font-bold text-white text-sm tracking-wide">{sport}</p>
+                </div>
+
+                {/* Contact rows */}
+                <div className="divide-y divide-white/[0.05]">
+                  {people.map((c, i) => (
+                    <div key={i} className="flex items-center gap-3 px-4 py-3.5 group">
+
+                      {/* Avatar */}
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center
+                                      text-sm font-black flex-shrink-0 transition-all duration-200"
+                           style={{ background: color + "25", color }}>
+                        {c.name[0]}
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-white text-sm leading-tight">{c.name}</p>
+                        <a href={`tel:${c.phone.replace(/\s/g, "")}`}
+                           className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
+                          {c.phone}
+                        </a>
+                      </div>
+
+                      {/* Call button */}
+                      <a href={`tel:${c.phone.replace(/\s/g, "")}`}
+                         title={`Call ${c.name}`}
+                         className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
+                                    text-sm transition-all duration-200 opacity-50 group-hover:opacity-100"
+                         style={{ background: color + "20", color }}>
+                        📞
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
