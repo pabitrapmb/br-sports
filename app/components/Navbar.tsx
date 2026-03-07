@@ -64,11 +64,11 @@ export default function Navbar() {
                 }}
               />
             </div>
-            <div className="leading-tight text-left">
-              <p className="font-barlow font-extrabold text-white text-sm tracking-[2px] uppercase">
+            <div className="leading-tight text-left hidden sm:block">
+              <p className="font-barlow font-semibold text-white/70 text-xs tracking-[1.5px] uppercase">
                 BR Champions Trophy
               </p>
-              <p className="text-[#F0B429] text-[10px] font-semibold tracking-[3px] uppercase">
+              <p className="text-[#F0B429] text-[10px] font-medium tracking-[2px] uppercase">
                 Season 3 · 2026
               </p>
             </div>

@@ -25,8 +25,8 @@ export default function Hero() {
           src="/BRPPL_BG_HiRes.jpg"
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-contain"
-          style={{ opacity: 0.10 }}
+          className="w-[90%] h-[90%] object-contain"
+          style={{ opacity: 0.22, filter: "contrast(1.15)" }}
         />
       </div>
 
@@ -61,11 +61,14 @@ export default function Hero() {
         </p>
 
         {/* Giant headline */}
-        <h1 className="font-barlow font-black uppercase leading-[0.88] mb-6 animate-fade-down-2"
-            style={{ fontSize: "clamp(4rem,10vw,8rem)", color: "#ffffff" }}>
-          Blue Ridge<br />
-          <span style={{
-            background: "linear-gradient(90deg, #ffffff 0%, #F0B429 45%, #ff8c00 100%)",
+        <h1 className="font-barlow font-black uppercase leading-[0.9] mb-6 animate-fade-down-2">
+          <span className="block text-white/60"
+                style={{ fontSize: "clamp(2rem,5.5vw,4rem)" }}>
+            Blue Ridge
+          </span>
+          <span className="block" style={{
+            fontSize: "clamp(3rem,8vw,6rem)",
+            background: "linear-gradient(90deg, #ffffff 0%, #F0B429 55%, #ff8c00 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
