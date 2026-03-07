@@ -18,7 +18,7 @@ export default function Sponsors() {
   const track = [...sponsorItems, ...sponsorItems];
 
   return (
-    <section id="sponsors" className="relative py-24 px-6 bg-[#080808] overflow-hidden">
+    <section id="sponsors" className="relative py-24 px-6 bg-[#080c1e] overflow-hidden">
 
       {/* Ambient glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[280px]
@@ -43,14 +43,14 @@ export default function Sponsors() {
 
       {/* ── Marquee strip ── */}
       <div className="relative w-full overflow-hidden border-y border-white/[0.07]"
-           style={{ background: "linear-gradient(90deg, #0a0a0a, #0d1120, #0a0a0a)" }}>
+           style={{ background: "linear-gradient(90deg, #080c1e, #0d1228, #080c1e)" }}>
 
         {/* Left fade */}
         <div className="absolute left-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
-             style={{ background: "linear-gradient(to right, #0a0a0a, transparent)" }} />
+             style={{ background: "linear-gradient(to right, #080c1e, transparent)" }} />
         {/* Right fade */}
         <div className="absolute right-0 top-0 bottom-0 w-28 z-10 pointer-events-none"
-             style={{ background: "linear-gradient(to left, #0a0a0a, transparent)" }} />
+             style={{ background: "linear-gradient(to left, #080c1e, transparent)" }} />
 
         <div className="flex animate-marquee">
           {track.map((item, i) => (
@@ -120,7 +120,7 @@ export default function Sponsors() {
           Put your brand in front of the entire Blue Ridge community across 9 exciting sports events.
           Multiple tiers available — reach out to discuss.
         </p>
-        <a href="#contacts"
+        <a href="#community"
            className="inline-flex items-center gap-2 px-8 py-3 rounded-xl text-sm font-bold
                       text-white transition-all duration-200 hover:scale-105 hover:brightness-110"
            style={{

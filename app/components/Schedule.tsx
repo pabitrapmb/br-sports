@@ -2,12 +2,19 @@
 
 import { useState } from "react";
 
+type SubEvent = {
+  subtitle: string;
+  accent: string;
+  note?: string;
+  contacts?: { name: string; phone: string }[];
+};
+
 type Event = {
   sport: string;
   emoji: string;
   accent: string;
   subtitle?: string;
-  status: "confirmed" | "soon";
+  status: "confirmed" | "tbd";
   date?: string;
   time?: string;
   venue?: string;
@@ -17,6 +24,7 @@ type Event = {
   contacts?: { name: string; phone: string }[];
   whatsapp?: string;
   registrationUrl?: string;
+  subEvents?: SubEvent[];
 };
 
 const events: Event[] = [
@@ -26,9 +34,9 @@ const events: Event[] = [
     accent: "#00b4d8",
     subtitle: "Smashers Cup 2026",
     status: "confirmed",
-    date: "Saturday, 7th March 2026",
+    date: "To be decided",
     time: "9:00 AM – 6:00 PM",
-    venue: "Unity Shuttle Arena, Hinjewadi, Pune",
+    venue: "Unity Shuttle Arena, PSA , Hinjewadi, Pune",
     categories: ["Men's Singles", "Men's Doubles", "Women's Doubles"],
     fees: [
       { label: "Singles", amount: "₹250 per participant" },
@@ -43,7 +51,7 @@ const events: Event[] = [
       "Proof of residency may be requested",
     ],
     contacts: [
-      { name: "Soham", phone: "97555 52414" },
+      { name: "Soham",    phone: "97555 52414" },
       { name: "Prashant", phone: "91600 55003" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
@@ -57,7 +65,7 @@ const events: Event[] = [
     status: "confirmed",
     date: "Sunday, 8th March 2026",
     time: "10:00 AM – 1:00 PM",
-    venue: "Unity Shuttle Arena, Hinjewadi, Pune",
+    venue: "Unity Shuttle Arena, PSA , Hinjewadi, Pune",
     categories: ["Men's Singles", "Women's Singles", "Men's Doubles", "Women's Doubles"],
     fees: [
       { label: "Singles", amount: "₹200 per participant" },
@@ -73,7 +81,7 @@ const events: Event[] = [
     ],
     contacts: [
       { name: "Prashant", phone: "91600 55003" },
-      { name: "Soham", phone: "97555 52414" },
+      { name: "Soham",    phone: "97555 52414" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
     registrationUrl: "https://forms.gle/REPLACE_WITH_TT_FORM_LINK",
@@ -85,7 +93,7 @@ const events: Event[] = [
     subtitle: "Champions Trophy 2026",
     status: "confirmed",
     date: "14th April 2026",
-    venue: "BR Unit C Club House",
+    venue: "BR Unit A Club House",
     categories: ["Open for All"],
     fees: [{ label: "Entry Fee", amount: "₹300 per player" }],
     rules: [
@@ -94,7 +102,7 @@ const events: Event[] = [
       "Share details: Player Name – Tower/Flat No – Mobile No – Age",
     ],
     contacts: [
-      { name: "Manoj", phone: "97730 22017" },
+      { name: "Manoj",   phone: "97730 22017" },
       { name: "Bhaskar", phone: "77200 32006" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
@@ -107,7 +115,7 @@ const events: Event[] = [
     subtitle: "Champions Trophy 2026",
     status: "confirmed",
     date: "21st April 2026",
-    venue: "BR Unit C Club House",
+    venue: "BR Unit A Club House",
     categories: ["Open for All"],
     fees: [{ label: "Entry Fee", amount: "₹350 per player" }],
     rules: [
@@ -116,46 +124,104 @@ const events: Event[] = [
       "Share details: Player Name – Tower/Flat No – Mobile No – Age",
     ],
     contacts: [
-      { name: "Manoj", phone: "97730 22017" },
+      { name: "Manoj",   phone: "97730 22017" },
       { name: "Bhaskar", phone: "77200 32006" },
     ],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
     registrationUrl: "https://forms.gle/REPLACE_WITH_CARROM_FORM_LINK",
   },
-  { sport: "Cricket",       emoji: "🏏", accent: "#2dc653", status: "soon" },
-  { sport: "Football",      emoji: "⚽", accent: "#e63946", status: "soon" },
-  { sport: "Cycling",       emoji: "🚴", accent: "#3a86ff", status: "soon" },
-  { sport: "Mini Marathon", emoji: "🏃", accent: "#2dc653", status: "soon" },
-  { sport: "Pickleball",    emoji: "🥏", accent: "#f5a623", status: "soon" },
+  {
+    sport: "Cricket",
+    emoji: "🏏",
+    accent: "#ef4444",
+    subtitle: "Season 3 · 2026",
+    status: "tbd",
+    date: "Date TBD",
+    venue: "BR Sports Ground",
+    subEvents: [
+      {
+        subtitle: "Cricket Tournament",
+        accent: "#ef4444",
+        note: "Format & schedule to be announced",
+        contacts: [
+          { name: "Rohan", phone: "99607 59184" },
+          { name: "Upen",  phone: "99750 83121" },
+        ],
+      },
+      {
+        subtitle: "BR Legends Cricket",
+        accent: "#3a86ff",
+        note: "Legends format · BR residents only",
+        contacts: [
+          { name: "Pabitra", phone: "98810 91733" },
+          { name: "Manoj",   phone: "97730 22017" },
+        ],
+      },
+    ],
+    whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+  },
+  {
+    sport: "Football",
+    emoji: "⚽",
+    accent: "#e63946",
+    subtitle: "Season 3 · 2026",
+    status: "tbd",
+    date: "Date TBD",
+    contacts: [
+      { name: "Jitendra", phone: "70309 36272" },
+      { name: "Chanchal", phone: "80870 50514" },
+    ],
+    whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+  },
+  {
+    sport: "Cycling",
+    emoji: "🚴",
+    accent: "#3a86ff",
+    subtitle: "Season 3 · 2026",
+    status: "tbd",
+    date: "Date TBD",
+    contacts: [{ name: "Satilal", phone: "99224 59784" }],
+    whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+  },
+  {
+    sport: "Mini Marathon",
+    emoji: "🏃",
+    accent: "#4ade80",
+    subtitle: "Season 3 · 2026",
+    status: "tbd",
+    date: "Date TBD",
+    contacts: [{ name: "Abhishek", phone: "99308 44415" }],
+    whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+  },
+  {
+    sport: "Pickleball",
+    emoji: "🥏",
+    accent: "#f5a623",
+    subtitle: "Season 3 · 2026",
+    status: "tbd",
+    date: "Date TBD",
+    whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
+  },
 ];
+
+function ContactChip({ name, phone, accent }: { name: string; phone: string; accent: string }) {
+  return (
+    <a
+      href={`tel:${phone.replace(/\s/g, "")}`}
+      className="flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-semibold
+                 transition-all duration-200 hover:opacity-80"
+      style={{ borderColor: accent + "45", color: accent, background: accent + "0d" }}
+    >
+      📞 {name}: {phone}
+    </a>
+  );
+}
 
 function EventCard({ event }: { event: Event }) {
   const [open, setOpen] = useState(false);
 
-  if (event.status === "soon") {
-    return (
-      <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-5
-                      flex items-center gap-4 hover:border-white/20 hover:bg-white/[0.04]
-                      transition-all duration-300 group">
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl flex-shrink-0
-                        transition-all duration-300"
-             style={{ background: event.accent + "12" }}>
-          {event.emoji}
-        </div>
-        <div className="flex-1">
-          <p className="font-bold text-white/80 text-sm">{event.sport}</p>
-          <span className="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest"
-                style={{ background: event.accent + "18", color: event.accent + "aa" }}>
-            Schedule Coming Soon
-          </span>
-        </div>
-        <div className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse"
-             style={{ background: event.accent + "70" }} />
-      </div>
-    );
-  }
-
   const cardId = "event-" + event.sport.toLowerCase().replace(/\s+/g, "-");
+  const isTbd  = event.status === "tbd";
 
   return (
     <div
@@ -178,7 +244,7 @@ function EventCard({ event }: { event: Event }) {
           {/* Header row */}
           <button className="w-full text-left px-5 py-5 flex items-center gap-4"
                   onClick={() => setOpen(!open)}>
-            <div className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl flex-shrink-0 transition-all duration-300"
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl flex-shrink-0"
                  style={{
                    background: event.accent + "1a",
                    boxShadow: open ? `0 0 24px ${event.accent}35` : "none",
@@ -196,8 +262,8 @@ function EventCard({ event }: { event: Event }) {
               )}
               <div className="flex flex-wrap gap-2 mt-2.5">
                 {event.date && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium text-gray-400"
-                        style={{ background: "rgba(255,255,255,0.05)" }}>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium"
+                        style={{ background: isTbd ? event.accent + "12" : "rgba(255,255,255,0.05)", color: isTbd ? event.accent : "#9ca3af" }}>
                     📅 {event.date}
                   </span>
                 )}
@@ -210,7 +276,7 @@ function EventCard({ event }: { event: Event }) {
               </div>
             </div>
 
-            {/* Chevron button */}
+            {/* Chevron */}
             <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
                  style={{
                    background: open ? event.accent + "22" : "rgba(255,255,255,0.06)",
@@ -227,108 +293,144 @@ function EventCard({ event }: { event: Event }) {
           {open && (
             <div className="px-5 pb-6 pt-4 space-y-5 border-t border-white/[0.06]">
 
-              {/* Venue */}
-              {event.venue && (
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm"
-                       style={{ background: event.accent + "18" }}>
-                    📍
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[2px] mb-0.5"
-                       style={{ color: event.accent + "99" }}>Venue</p>
-                    <p className="text-white text-sm">{event.venue}</p>
-                  </div>
+              {/* Sub-events (e.g. Cricket + Legends Cricket) */}
+              {event.subEvents ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {event.subEvents.map((sub, i) => (
+                    <div key={i} className="rounded-xl p-4 space-y-3"
+                         style={{ background: sub.accent + "0a", border: `1px solid ${sub.accent}25` }}>
+                      <p className="font-bold text-sm" style={{ color: sub.accent }}>{sub.subtitle}</p>
+                      {sub.note && (
+                        <p className="text-xs text-gray-500">{sub.note}</p>
+                      )}
+                      <div className="flex flex-wrap gap-2">
+                        {sub.contacts?.map((c) => (
+                          <ContactChip key={c.name} name={c.name} phone={c.phone} accent={sub.accent} />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              )}
-
-              {/* Categories & Fees */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {event.categories && (
-                  <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
-                    <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
-                       style={{ color: event.accent + "99" }}>Categories</p>
+              ) : isTbd ? (
+                /* TBD event — minimal view */
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 text-sm text-gray-400 rounded-xl px-4 py-3"
+                       style={{ background: event.accent + "08" }}>
+                    <span className="mt-0.5">🔜</span>
+                    <span>Schedule & registration details will be announced soon. Contact the coordinator for updates.</span>
+                  </div>
+                  {event.contacts && (
                     <div className="flex flex-wrap gap-2">
-                      {event.categories.map((c) => (
-                        <span key={c} className="px-2.5 py-1 rounded-lg text-xs font-semibold border"
-                              style={{ borderColor: event.accent + "45", color: event.accent, background: event.accent + "12" }}>
-                          {c}
-                        </span>
+                      {event.contacts.map((c) => (
+                        <ContactChip key={c.name} name={c.name} phone={c.phone} accent={event.accent} />
                       ))}
                     </div>
-                  </div>
-                )}
-                {event.fees && (
-                  <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
-                    <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
-                       style={{ color: event.accent + "99" }}>Registration Fees</p>
-                    <div className="space-y-1.5">
-                      {event.fees.map((f) => (
-                        <p key={f.label} className="text-sm">
-                          <span className="text-gray-500">{f.label}: </span>
-                          <span className="text-white font-semibold">{f.amount}</span>
-                        </p>
-                      ))}
+                  )}
+                </div>
+              ) : (
+                /* Full confirmed event */
+                <>
+                  {event.venue && (
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm"
+                           style={{ background: event.accent + "18" }}>
+                        📍
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-0.5"
+                           style={{ color: event.accent + "99" }}>Venue</p>
+                        <p className="text-white text-sm">{event.venue}</p>
+                      </div>
                     </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {event.categories && (
+                      <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
+                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
+                           style={{ color: event.accent + "99" }}>Categories</p>
+                        <div className="flex flex-wrap gap-2">
+                          {event.categories.map((c) => (
+                            <span key={c} className="px-2.5 py-1 rounded-lg text-xs font-semibold border"
+                                  style={{ borderColor: event.accent + "45", color: event.accent, background: event.accent + "12" }}>
+                              {c}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {event.fees && (
+                      <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
+                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
+                           style={{ color: event.accent + "99" }}>Registration Fees</p>
+                        <div className="space-y-1.5">
+                          {event.fees.map((f) => (
+                            <p key={f.label} className="text-sm">
+                              <span className="text-gray-500">{f.label}: </span>
+                              <span className="text-white font-semibold">{f.amount}</span>
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              {/* Rules */}
-              {event.rules && (
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[2px] mb-3"
-                     style={{ color: event.accent + "99" }}>Tournament Rules</p>
-                  <ul className="space-y-2.5">
-                    {event.rules.map((r, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-gray-300">
-                        <span className="w-5 h-5 rounded-full flex items-center justify-center
-                                         text-[10px] font-bold flex-shrink-0 mt-0.5"
-                              style={{ background: event.accent + "22", color: event.accent }}>
-                          {i + 1}
-                        </span>
-                        {r}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                  {event.rules && (
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[2px] mb-3"
+                         style={{ color: event.accent + "99" }}>Tournament Rules</p>
+                      <ul className="space-y-2.5">
+                        {event.rules.map((r, i) => (
+                          <li key={i} className="flex gap-3 text-sm text-gray-300">
+                            <span className="w-5 h-5 rounded-full flex items-center justify-center
+                                             text-[10px] font-bold flex-shrink-0 mt-0.5"
+                                  style={{ background: event.accent + "22", color: event.accent }}>
+                              {i + 1}
+                            </span>
+                            {r}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {event.registrationUrl && (
+                    <div>
+                      <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer"
+                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold
+                                    text-white transition-all duration-200 hover:scale-[1.03] hover:brightness-110 active:scale-100"
+                         style={{
+                           background: `linear-gradient(135deg, ${event.accent}, ${event.accent}bb)`,
+                           boxShadow: `0 4px 20px ${event.accent}40`,
+                         }}>
+                        📋 Register Now →
+                      </a>
+                      <p className="text-[10px] text-gray-600 mt-2 ml-1">Opens Google Form in a new tab</p>
+                    </div>
+                  )}
+                </>
               )}
 
-              {/* Register button */}
-              {event.registrationUrl && (
-                <div>
-                  <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer"
-                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold
-                                text-white transition-all duration-200 hover:scale-[1.03] hover:brightness-110 active:scale-100"
-                     style={{
-                       background: `linear-gradient(135deg, ${event.accent}, ${event.accent}bb)`,
-                       boxShadow: `0 4px 20px ${event.accent}40`,
-                     }}>
-                    📋 Register Now →
-                  </a>
-                  <p className="text-[10px] text-gray-600 mt-2 ml-1">Opens Google Form in a new tab</p>
-                </div>
-              )}
-
-              {/* Contacts & WhatsApp */}
-              <div className="flex flex-wrap gap-2">
-                {event.contacts?.map((c) => (
-                  <a key={c.name} href={`tel:${c.phone.replace(/\s/g, "")}`}
-                     className="flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-semibold
-                                transition-all duration-200 hover:opacity-80"
-                     style={{ borderColor: event.accent + "45", color: event.accent, background: event.accent + "0d" }}>
-                    📞 {c.name}: {c.phone}
-                  </a>
-                ))}
-                {event.whatsapp && (
+              {/* WhatsApp — always shown when expanded */}
+              {event.whatsapp && (
+                <div className="pt-1">
                   <a href={event.whatsapp} target="_blank" rel="noopener noreferrer"
-                     className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
+                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
                                 transition-all duration-200 hover:bg-[#25d366]/20"
                      style={{ background: "rgba(37,211,102,0.1)", border: "1px solid rgba(37,211,102,0.3)", color: "#25d366" }}>
                     💬 WhatsApp Group →
                   </a>
-                )}
-              </div>
+                </div>
+              )}
+
+              {/* Contacts for confirmed events */}
+              {!event.subEvents && !isTbd && event.contacts && (
+                <div className="flex flex-wrap gap-2">
+                  {event.contacts.map((c) => (
+                    <ContactChip key={c.name} name={c.name} phone={c.phone} accent={event.accent} />
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -338,13 +440,9 @@ function EventCard({ event }: { event: Event }) {
 }
 
 export default function Schedule() {
-  const confirmed = events.filter((e) => e.status === "confirmed");
-  const soon      = events.filter((e) => e.status === "soon");
-
   return (
-    <section id="schedule" className="relative py-24 px-6 bg-[#080808] dot-grid overflow-hidden">
+    <section id="schedule" className="relative py-24 px-6 bg-[#080d1e] dot-grid overflow-hidden">
 
-      {/* Top radial glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[280px]
                       bg-[#F0B429]/5 blur-[100px] rounded-full pointer-events-none" />
 
@@ -362,21 +460,7 @@ export default function Schedule() {
         </p>
 
         <div className="max-w-3xl mx-auto space-y-3">
-          {confirmed.map((e) => <EventCard key={e.sport} event={e} />)}
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 py-6">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-white/10" />
-            <span className="text-[10px] font-bold uppercase tracking-[3px] text-gray-600
-                             border border-white/10 rounded-full px-4 py-1.5">
-              More Coming Soon
-            </span>
-            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-white/10 to-white/10" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {soon.map((e) => <EventCard key={e.sport} event={e} />)}
-          </div>
+          {events.map((e) => <EventCard key={e.sport} event={e} />)}
         </div>
       </div>
     </section>

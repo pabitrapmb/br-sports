@@ -3,41 +3,39 @@
 import Image from "next/image";
 
 const sports = [
-  { emoji: "🏏", name: "Cricket",       accent: "#ef4444", image: null,          scheduleId: null },
-  { emoji: "⚽", name: "Football",      accent: "#22c55e", image: null,          scheduleId: null },
-  { emoji: "🏸", name: "Badminton",     accent: "#22d3ee", image: null,          scheduleId: "event-badminton" },
-  { emoji: "🏓", name: "Table Tennis",  accent: "#F0B429", image: null,          scheduleId: "event-table-tennis" },
-  { emoji: "♟",  name: "Chess",         accent: "#a78bfa", image: null,          scheduleId: "event-chess" },
-  { emoji: "🎱", name: "Carrom",        accent: "#f472b6", image: "/gallery/Sports/Carrom.jpg", scheduleId: "event-carrom" },
-  { emoji: "🚴", name: "Cycling",       accent: "#60a5fa", image: null,          scheduleId: null },
-  { emoji: "🏃", name: "Mini Marathon", accent: "#4ade80", image: null,          scheduleId: null },
-  { emoji: "🥏", name: "Pickleball",    accent: "#fb923c", image: null,          scheduleId: null },
+  { emoji: "🏸", name: "Badminton",     accent: "#22d3ee", image: null,          scheduleId: "event-badminton",     registrationOpen: true  },
+  { emoji: "🏓", name: "Table Tennis",  accent: "#F0B429", image: null,          scheduleId: "event-table-tennis",  registrationOpen: true  },
+  { emoji: "♟",  name: "Chess",         accent: "#a78bfa", image: null,          scheduleId: "event-chess",         registrationOpen: true  },
+  { emoji: "🎱", name: "Carrom",        accent: "#f472b6", image: "/gallery/Sports/Carrom.jpg", scheduleId: "event-carrom", registrationOpen: true },
+  { emoji: "🏏", name: "Cricket",       accent: "#ef4444", image: null,          scheduleId: "event-cricket",       registrationOpen: false },
+  { emoji: "⚽", name: "Football",      accent: "#22c55e", image: null,          scheduleId: "event-football",      registrationOpen: false },
+  { emoji: "🚴", name: "Cycling",       accent: "#60a5fa", image: null,          scheduleId: "event-cycling",       registrationOpen: false },
+  { emoji: "🏃", name: "Mini Marathon", accent: "#4ade80", image: null,          scheduleId: "event-mini-marathon", registrationOpen: false },
+  { emoji: "🥏", name: "Pickleball",    accent: "#fb923c", image: null,          scheduleId: "event-pickleball",    registrationOpen: false },
 ];
 
 export default function Sports() {
 
-  const handleClick = (scheduleId: string | null) => {
-    if (scheduleId) {
-      const el = document.getElementById(scheduleId);
-      if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: y, behavior: "smooth" });
-        setTimeout(() => (el.querySelector("button") as HTMLButtonElement)?.click(), 600);
-      }
+  const handleClick = (scheduleId: string) => {
+    const el = document.getElementById(scheduleId);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      setTimeout(() => (el.querySelector("button") as HTMLButtonElement)?.click(), 600);
     } else {
-      const el = document.getElementById("schedule");
-      if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY - 68;
+      const section = document.getElementById("schedule");
+      if (section) {
+        const y = section.getBoundingClientRect().top + window.scrollY - 68;
         window.scrollTo({ top: y, behavior: "smooth" });
       }
     }
   };
 
-  const confirmed = sports.filter((s) => s.scheduleId !== null);
-  const comingSoon = sports.filter((s) => s.scheduleId === null);
+  const registrationOpen = sports.filter((s) => s.registrationOpen);
+  const detailsTbd      = sports.filter((s) => !s.registrationOpen);
 
   return (
-    <section id="sports" className="py-24 px-6 bg-[#0a0a0a]">
+    <section id="sports" className="py-24 px-6 bg-[#06091a]">
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}
@@ -54,21 +52,19 @@ export default function Sports() {
           Click any sport to jump straight to its schedule &amp; registration
         </p>
 
-        {/* Confirmed sports */}
+        {/* Registration open */}
         <p className="text-xs font-bold uppercase tracking-[3px] text-[#0057B7] mb-4 text-center">
           Registration Open
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
-          {confirmed.map((s) => (
+          {registrationOpen.map((s) => (
             <button
               key={s.name}
               onClick={() => handleClick(s.scheduleId)}
               className="group relative rounded-2xl p-6 text-center border border-white/10
-                         bg-[#080808] hover:border-transparent transition-all duration-250
+                         bg-[#0b0f24] hover:border-transparent transition-all duration-250
                          hover:-translate-y-1.5 overflow-hidden"
-              style={{
-                boxShadow: "0 0 0 rgba(0,0,0,0)",
-              }}
+              style={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 40px ${s.accent}30, 0 0 0 1px ${s.accent}60`;
               }}
@@ -76,12 +72,9 @@ export default function Sports() {
                 (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 rgba(0,0,0,0)";
               }}
             >
-              {/* Top accent bar */}
               <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl opacity-0
                               group-hover:opacity-100 transition-opacity duration-200"
                    style={{ background: s.accent }} />
-
-              {/* Icon */}
               {s.image ? (
                 <div className="w-14 h-14 mx-auto mb-3">
                   <Image src={s.image} alt={s.name} width={56} height={56}
@@ -90,7 +83,6 @@ export default function Sports() {
               ) : (
                 <span className="text-5xl mb-3 block">{s.emoji}</span>
               )}
-
               <p className="font-barlow font-bold text-white text-base uppercase tracking-wide">
                 {s.name}
               </p>
@@ -103,17 +95,17 @@ export default function Sports() {
           ))}
         </div>
 
-        {/* Coming soon */}
+        {/* Details TBD */}
         <p className="text-xs font-bold uppercase tracking-[3px] text-gray-500 mb-4 text-center">
-          Coming Soon
+          Details TBD
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {comingSoon.map((s) => (
+          {detailsTbd.map((s) => (
             <button
               key={s.name}
               onClick={() => handleClick(s.scheduleId)}
               className="group rounded-2xl p-5 text-center border border-dashed border-white/10
-                         bg-[#080808]/60 hover:border-white/25 transition-all duration-200"
+                         bg-[#0b0f24]/60 hover:border-white/25 transition-all duration-200"
             >
               <span className="text-4xl mb-2.5 block opacity-60 group-hover:opacity-100 transition-opacity">
                 {s.emoji}
@@ -122,7 +114,7 @@ export default function Sports() {
                 {s.name}
               </p>
               <p className="text-[9px] font-bold uppercase tracking-wider mt-1.5 text-gray-600">
-                Coming Soon
+                Date TBD
               </p>
             </button>
           ))}

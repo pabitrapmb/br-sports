@@ -7,7 +7,6 @@ const links = [
   { label: "Sports",    href: "#sports" },
   { label: "Schedule",  href: "#schedule" },
   { label: "Gallery",   href: "#gallery" },
-  { label: "Contacts",  href: "#contacts" },
   { label: "Community", href: "#community" },
   { label: "Sponsors",  href: "#sponsors" },
 ];

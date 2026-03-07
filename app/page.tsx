@@ -4,7 +4,6 @@ import About from "./components/About";
 import Sports from "./components/Sports";
 import Schedule from "./components/Schedule";
 import Gallery from "./components/Gallery";
-import Contacts from "./components/Contacts";
 import Community from "./components/Community";
 import Sponsors from "./components/Sponsors";
 import Footer from "./components/Footer";
@@ -19,7 +18,6 @@ export default function Home() {
         <Sports />      {/* dark navy section */}
         <Schedule />    {/* darkest navy section */}
         <Gallery />     {/* dark section */}
-        <Contacts />    {/* white section */}
         <Community />   {/* dark navy section */}
         <Sponsors />    {/* white section */}
       </main>

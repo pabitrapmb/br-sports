@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#000000] border-t border-white/[0.06]">
+    <footer className="bg-[#04060f] border-t border-white/[0.06]">
 
       {/* Olympic stripe */}
       <div className="olympic-stripe" />
@@ -27,7 +27,7 @@ export default function Footer() {
               Quick Links
             </p>
             <div className="flex flex-col gap-2">
-              {["#about","#sports","#schedule","#gallery","#contacts","#community"].map((href) => (
+              {["#about","#sports","#schedule","#gallery","#community","#sponsors"].map((href) => (
                 <a
                   key={href}
                   href={href}

@@ -27,7 +27,7 @@ const benefits = [
 
 export default function Community() {
   return (
-    <section id="community" className="relative py-24 px-6 bg-[#080808] overflow-hidden">
+    <section id="community" className="relative py-24 px-6 bg-[#07091a] overflow-hidden">
 
       {/* WhatsApp green ambient glow */}
       <div className="absolute top-1/2 -translate-y-1/2 right-0 w-[500px] h-[500px]
@@ -98,7 +98,7 @@ export default function Community() {
           <div className="flex justify-center lg:justify-end">
             <div className="relative rounded-3xl p-[2px] w-full max-w-[300px]"
                  style={{ background: "linear-gradient(135deg, #25D366, #128C7E, #25D366)" }}>
-              <div className="rounded-[22px] bg-[#0a0a0a] p-8 flex flex-col items-center text-center">
+              <div className="rounded-[22px] bg-[#07091a] p-8 flex flex-col items-center text-center">
 
                 {/* WhatsApp icon header */}
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"

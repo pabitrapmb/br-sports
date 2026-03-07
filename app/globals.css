@@ -5,9 +5,9 @@
   --font-inter:  "Inter", system-ui, sans-serif;
   --font-bebas:  "Bebas Neue", Impact, sans-serif;
 
-  --navy:       #080808;
-  --navy-mid:   #0f0f0f;
-  --navy-light: #161616;
+  --navy:       #07091a;
+  --navy-mid:   #0b0f24;
+  --navy-light: #10162e;
   --blue:       #0057B7;
   --blue-light: #1a6fd4;
   --gold:       #F0B429;
@@ -95,7 +95,7 @@ body {
 
 /* ─── Dot grid background ─────────────────────── */
 .dot-grid {
-  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 

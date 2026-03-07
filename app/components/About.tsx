@@ -34,7 +34,7 @@ const stats = [
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 px-6 bg-[#0f0f0f] overflow-hidden">
+    <section id="about" className="relative py-24 px-6 bg-[#0b1220] overflow-hidden">
 
       {/* Ambient glows */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[320px]

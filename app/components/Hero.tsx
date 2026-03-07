@@ -17,7 +17,7 @@ export default function Hero() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ background: "#000000" }}
+      style={{ background: "#06091a" }}
     >
       {/* Full-bleed background logo watermark */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
@@ -134,7 +134,7 @@ export default function Hero() {
 
       {/* Bottom fade to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-40
-                      bg-gradient-to-t from-black to-transparent pointer-events-none" />
+                      bg-gradient-to-t from-[#06091a] to-transparent pointer-events-none" />
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2

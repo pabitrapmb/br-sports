@@ -86,7 +86,7 @@ export default function Gallery() {
   const item: MediaItem | null = lightbox !== null ? filtered[lightbox] : null;
 
   return (
-    <section id="gallery" className="relative py-24 px-6 bg-[#060606] overflow-hidden">
+    <section id="gallery" className="relative py-24 px-6 bg-[#07091a] overflow-hidden">
 
       {/* Background glow */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[300px]
