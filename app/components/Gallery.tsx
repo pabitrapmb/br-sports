@@ -1,148 +1,253 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-// ─── ADD YOUR PHOTOS & VIDEOS HERE ──────────────────────────────────────
-// Put files in the /public/gallery/ folder, then list them below.
-// For images: { type: "image", src: "/gallery/filename.jpg",  season: "Season 1", caption: "..." }
-// For videos: { type: "video", src: "/gallery/filename.mp4",  season: "Season 2", caption: "..." }
+// ─── ADD YOUR PHOTOS & VIDEOS HERE ──────────────────────────────────────────
+// Put files in /public/gallery/, then list them below.
+// { type: "image", src: "/gallery/filename.jpg",  season: "Season 1", caption: "..." }
+// { type: "video", src: "/gallery/filename.mp4",  season: "Season 2", caption: "..." }
 
 const media = [
-  { type: "image",src: "/gallery/photo7.jpg", season: "Season 1", caption: "Opening ceremony" },
-  { type: "image",src: "/gallery/photo6.jpg", season: "Season 1", caption: "Opening ceremony" },
-  { type: "image",src: "/gallery/photo3.jpg", season: "Season 2", caption: "Carrom" },
-  { type: "image",src: "/gallery/photo4.jpg", season: "Season 2", caption: "Carrom" },
-  { type: "image",src: "/gallery/photo1.jpg", season: "Season 2", caption: "Chess" },
-  { type: "image",src: "/gallery/photo2.jpg", season: "Season 2", caption: "Chess" },
-  { type: "image",src: "/gallery/photo5.jpg", season: "Season 2", caption: "Awards Night" },
-  { type: "image",src: "/gallery/AwardsNight/AwardsNight1.jpg", season: "Season 2", caption: "Awards Night" },
-  { type: "image",src: "/gallery/AwardsNight/AwardsNight2.jpg", season: "Season 2", caption: "Awards Night" },
-  { type: "image",src: "/gallery/AwardsNight/AwardsNight3.jpg", season: "Season 2", caption: "Awards Night" },
-  { type: "image",src: "/gallery/AwardsNight/AwardsNight4.jpg", season: "Season 2", caption: "Awards Night" },
-  { type: "video", src: "/gallery/AwardsNight/AwardsNight5.mp4", season: "Season 2", caption: "Awards Night" },
+  { type: "image", src: "/gallery/photo7.jpg",                       season: "Season 1", caption: "Opening Ceremony" },
+  { type: "image", src: "/gallery/photo6.jpg",                       season: "Season 1", caption: "Opening Ceremony" },
+  { type: "image", src: "/gallery/photo3.jpg",                       season: "Season 2", caption: "Carrom" },
+  { type: "image", src: "/gallery/photo4.jpg",                       season: "Season 2", caption: "Carrom" },
+  { type: "image", src: "/gallery/photo1.jpg",                       season: "Season 2", caption: "Chess" },
+  { type: "image", src: "/gallery/photo2.jpg",                       season: "Season 2", caption: "Chess" },
+  { type: "image", src: "/gallery/photo5.jpg",                       season: "Season 2", caption: "Awards Night" },
+  { type: "image", src: "/gallery/AwardsNight/AwardsNight1.jpg",     season: "Season 2", caption: "Awards Night" },
+  { type: "image", src: "/gallery/AwardsNight/AwardsNight2.jpg",     season: "Season 2", caption: "Awards Night" },
+  { type: "image", src: "/gallery/AwardsNight/AwardsNight3.jpg",     season: "Season 2", caption: "Awards Night" },
+  { type: "image", src: "/gallery/AwardsNight/AwardsNight4.jpg",     season: "Season 2", caption: "Awards Night" },
+  { type: "video", src: "/gallery/AwardsNight/AwardsNight5.mp4",     season: "Season 2", caption: "Awards Night" },
   // Add more here...
 ];
 
-type MediaItem = { type: string; src: string; season: string; caption: string };
+type MediaItem = typeof media[number];
 
 const seasons = ["All", ...Array.from(new Set(media.map((m) => m.season)))];
 
+function CloseIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+         stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+      <line x1="3" y1="3" x2="17" y2="17" />
+      <line x1="17" y1="3" x2="3" y2="17" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ dir }: { dir: "left" | "right" }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+         stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      {dir === "left"
+        ? <polyline points="14 5 8 11 14 17" />
+        : <polyline points="8 5 14 11 8 17" />}
+    </svg>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="white">
+      <polygon points="8,4 22,13 8,22" />
+    </svg>
+  );
+}
+
 export default function Gallery() {
-  const [active, setActive]   = useState("All");
-  const [lightbox, setLightbox] = useState<MediaItem | null>(null);
+  const [active,   setActive]   = useState("All");
+  const [lightbox, setLightbox] = useState<number | null>(null);
 
   const filtered = active === "All" ? media : media.filter((m) => m.season === active);
 
+  const prev = useCallback(() => {
+    if (lightbox === null) return;
+    setLightbox((lightbox - 1 + filtered.length) % filtered.length);
+  }, [lightbox, filtered.length]);
+
+  const next = useCallback(() => {
+    if (lightbox === null) return;
+    setLightbox((lightbox + 1) % filtered.length);
+  }, [lightbox, filtered.length]);
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "Escape")     setLightbox(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox, prev, next]);
+
+  const item: MediaItem | null = lightbox !== null ? filtered[lightbox] : null;
+
   return (
-    <section id="gallery" className="py-24 px-6 bg-[#080808]">
-      <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
-        Memories
-      </p>
-      <h2 className="font-barlow font-black text-white uppercase text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
-        Previous Seasons
-      </h2>
-      <div className="w-14 h-1 bg-gradient-to-r from-[#f5a623] to-red-500 rounded-full mx-auto mb-5" />
-      <p className="text-gray-400 text-center text-sm mb-10">
-        Relive the excitement from Season 1 &amp; Season 2
-      </p>
+    <section id="gallery" className="relative py-24 px-6 bg-[#060606] overflow-hidden">
 
-      {/* Season filter tabs */}
-      <div className="flex justify-center gap-3 mb-10 flex-wrap">
-        {seasons.map((s) => (
-          <button
-            key={s}
-            onClick={() => setActive(s)}
-            className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest border-2 transition-all
-              ${active === s
-                ? "bg-[#f5a623] border-[#f5a623] text-black"
-                : "border-white/20 text-gray-400 hover:border-[#f5a623]/60 hover:text-[#F0B429]"
-              }`}
-          >
-            {s}
-          </button>
-        ))}
-      </div>
+      {/* Background glow */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[300px]
+                      bg-[#F0B429]/4 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
-        {filtered.map((item, i) => (
-          <div
-            key={i}
-            className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group border border-white/10 bg-white/[0.04]"
-            onClick={() => setLightbox(item as MediaItem)}
-          >
-            {item.type === "video" ? (
-              /* ── Video thumbnail ── */
-              <>
-                <video
-                  src={item.src}
-                  className="w-full h-full object-cover"
-                  muted
-                  playsInline
-                  onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = "none"; }}
-                />
-                {/* Play badge */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-12 h-12 rounded-full bg-black/60 border-2 border-white/80 flex items-center justify-center">
-                    <span className="text-white text-xl ml-1">▶</span>
+      {/* Header */}
+      <div className="relative z-10 max-w-5xl mx-auto">
+        <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
+          Memories
+        </p>
+        <h2 className="font-barlow font-black text-white uppercase text-center
+                       text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
+          Previous Seasons
+        </h2>
+        <div className="w-14 h-1 bg-gradient-to-r from-[#F0B429] to-red-500 rounded-full mx-auto mb-5" />
+        <p className="text-gray-400 text-center text-sm mb-10">
+          Relive the excitement from Season 1 &amp; Season 2
+        </p>
+
+        {/* Filter tabs with counts */}
+        <div className="flex justify-center gap-2 mb-10 flex-wrap">
+          {seasons.map((s) => {
+            const count = s === "All" ? media.length : media.filter((m) => m.season === s).length;
+            const isActive = active === s;
+            return (
+              <button key={s} onClick={() => setActive(s)}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold
+                                 uppercase tracking-widest border transition-all duration-200"
+                      style={{
+                        background:   isActive ? "#F0B429"            : "rgba(255,255,255,0.04)",
+                        borderColor:  isActive ? "#F0B429"            : "rgba(255,255,255,0.12)",
+                        color:        isActive ? "#000"               : "#9ca3af",
+                      }}>
+                {s}
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-black"
+                      style={{
+                        background: isActive ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.08)",
+                        color:      isActive ? "#000"            : "#6b7280",
+                      }}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Masonry grid */}
+        <div className="columns-2 sm:columns-3 md:columns-4 gap-3">
+          {filtered.map((item, i) => (
+            <div key={`${active}-${i}`}
+                 className="break-inside-avoid mb-3 relative rounded-xl overflow-hidden
+                            cursor-pointer group border border-white/[0.07] bg-white/[0.03]"
+                 onClick={() => setLightbox(i)}>
+
+              {item.type === "video" ? (
+                <>
+                  <video src={item.src} className="w-full h-auto block" muted playsInline
+                         onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = "none"; }} />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm
+                                    border border-white/30 flex items-center justify-center">
+                      <PlayIcon />
+                    </div>
                   </div>
-                </div>
-              </>
-            ) : (
-              /* ── Image thumbnail ── */
-              <img
-                src={item.src}
-                alt={item.caption || item.season}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-              />
-            )}
+                </>
+              ) : (
+                <img src={item.src} alt={item.caption}
+                     className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
+                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+              )}
 
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 p-3">
-              <span className="text-white text-2xl">{item.type === "video" ? "▶" : "🔍"}</span>
-              <span className="text-[#F0B429] text-xs font-bold uppercase tracking-widest">{item.season}</span>
-              {item.caption && <span className="text-white text-xs text-center">{item.caption}</span>}
+              {/* Hover overlay */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300
+                              flex flex-col justify-end"
+                   style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)" }}>
+                <div className="p-3">
+                  <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest mb-1"
+                        style={{ background: "rgba(240,180,41,0.25)", color: "#F0B429" }}>
+                    {item.season}
+                  </span>
+                  {item.caption && (
+                    <p className="text-white text-xs font-semibold leading-tight">{item.caption}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Video badge always visible */}
+              {item.type === "video" && (
+                <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[9px]
+                                font-bold uppercase tracking-wider bg-black/60 text-white/80 backdrop-blur-sm">
+                  Video
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* Lightbox */}
-      {lightbox && (
-        <div
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            className="absolute top-5 right-6 text-white text-3xl font-bold hover:text-[#F0B429] transition z-10"
-            onClick={() => setLightbox(null)}
-          >
-            ✕
+      {/* ── Lightbox ── */}
+      {item && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center"
+             style={{ background: "rgba(0,0,0,0.96)", backdropFilter: "blur(12px)" }}
+             onClick={() => setLightbox(null)}>
+
+          {/* Close */}
+          <button onClick={() => setLightbox(null)}
+                  className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full flex items-center
+                             justify-center text-white/60 hover:text-white hover:bg-white/10
+                             transition-all duration-200"
+                  aria-label="Close">
+            <CloseIcon />
           </button>
 
-          {lightbox.type === "video" ? (
-            <video
-              src={lightbox.src}
-              controls
-              autoPlay
-              className="max-w-full max-h-[85vh] rounded-xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          ) : (
-            <img
-              src={lightbox.src}
-              alt={lightbox.caption}
-              className="max-w-full max-h-[85vh] object-contain rounded-xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          )}
+          {/* Prev */}
+          <button onClick={(e) => { e.stopPropagation(); prev(); }}
+                  className="absolute left-4 z-10 w-11 h-11 rounded-full flex items-center
+                             justify-center text-white/50 hover:text-white hover:bg-white/10
+                             transition-all duration-200"
+                  aria-label="Previous">
+            <ChevronIcon dir="left" />
+          </button>
 
-          {lightbox.caption && (
-            <p className="absolute bottom-6 text-white/70 text-sm text-center px-4">
-              {lightbox.caption}
-            </p>
-          )}
+          {/* Next */}
+          <button onClick={(e) => { e.stopPropagation(); next(); }}
+                  className="absolute right-4 z-10 w-11 h-11 rounded-full flex items-center
+                             justify-center text-white/50 hover:text-white hover:bg-white/10
+                             transition-all duration-200"
+                  aria-label="Next">
+            <ChevronIcon dir="right" />
+          </button>
+
+          {/* Media */}
+          <div className="max-w-[90vw] max-h-[82vh] flex items-center justify-center"
+               onClick={(e) => e.stopPropagation()}>
+            {item.type === "video" ? (
+              <video src={item.src} controls autoPlay
+                     className="max-w-full max-h-[82vh] rounded-2xl shadow-2xl" />
+            ) : (
+              <img src={item.src} alt={item.caption}
+                   className="max-w-full max-h-[82vh] object-contain rounded-2xl shadow-2xl" />
+            )}
+          </div>
+
+          {/* Caption bar */}
+          <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between
+                          px-6 py-4 pointer-events-none"
+               style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
+            <div>
+              <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase
+                               tracking-widest mr-2"
+                    style={{ background: "rgba(240,180,41,0.2)", color: "#F0B429" }}>
+                {item.season}
+              </span>
+              {item.caption && (
+                <span className="text-white/80 text-sm font-medium">{item.caption}</span>
+              )}
+            </div>
+            <span className="text-white/30 text-xs tabular-nums">
+              {(lightbox ?? 0) + 1} / {filtered.length}
+            </span>
+          </div>
         </div>
       )}
     </section>
