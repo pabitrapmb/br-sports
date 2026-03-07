@@ -51,18 +51,16 @@ export default function Navbar() {
             className="flex items-center gap-3 flex-shrink-0 group"
             aria-label="Back to top"
           >
-            {/* Logo image — save your uploaded image as public/logo.png */}
-            <div className="w-10 h-10 rounded-xl overflow-hidden bg-[#111111] flex items-center justify-center
+            {/* Logo image */}
+            <div className="h-9 sm:h-10 w-fit rounded-xl overflow-hidden bg-[#111111] flex items-center justify-center px-1.5
                             border border-white/10 group-hover:border-[#F0B429]/60 transition-all duration-200">
               <img
                 src="/BRPPL_BG_HiRes.jpg"
                 alt="BR Champions Trophy"
-                width={40}
-                height={40}
-                className="object-cover w-full h-full"
+                className="h-7 sm:h-8 w-auto object-contain"
                 onError={(e) => {
                   const t = e.currentTarget.parentElement as HTMLElement;
-                  if (t) t.innerHTML = '<span style="font-size:22px;line-height:1">🏆</span>';
+                  if (t) t.innerHTML = '<span style="font-size:22px;line-height:1;padding:0 4px">🏆</span>';
                 }}
               />
             </div>
