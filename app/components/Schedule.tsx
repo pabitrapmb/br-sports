@@ -31,7 +31,7 @@ const events: Event[] = [
   {
     sport: "Badminton",
     emoji: "🏸",
-    accent: "#00b4d8",
+    accent: "#0ea5e9",
     subtitle: "Smashers Cup 2026",
     status: "confirmed",
     date: "To be decided",
@@ -60,7 +60,7 @@ const events: Event[] = [
   {
     sport: "Table Tennis",
     emoji: "🏓",
-    accent: "#ff6b35",
+    accent: "#f59e0b",
     subtitle: "TT Championship 2026",
     status: "confirmed",
     date: "Sunday, 8th March 2026",
@@ -89,7 +89,7 @@ const events: Event[] = [
   {
     sport: "Chess",
     emoji: "♟",
-    accent: "#f5a623",
+    accent: "#8b5cf6",
     subtitle: "Champions Trophy 2026",
     status: "confirmed",
     date: "14th April 2026",
@@ -111,7 +111,7 @@ const events: Event[] = [
   {
     sport: "Carrom",
     emoji: "🎱",
-    accent: "#7b2d8b",
+    accent: "#a855f7",
     subtitle: "Champions Trophy 2026",
     status: "confirmed",
     date: "21st April 2026",
@@ -150,7 +150,7 @@ const events: Event[] = [
       },
       {
         subtitle: "BR Legends Cricket",
-        accent: "#3a86ff",
+        accent: "#3b82f6",
         note: "Legends format · BR residents only",
         contacts: [
           { name: "Pabitra", phone: "98810 91733" },
@@ -176,7 +176,7 @@ const events: Event[] = [
   {
     sport: "Cycling",
     emoji: "🚴",
-    accent: "#3a86ff",
+    accent: "#3b82f6",
     subtitle: "Season 3 · 2026",
     status: "tbd",
     date: "To Be Decided",
@@ -186,7 +186,7 @@ const events: Event[] = [
   {
     sport: "Mini Marathon",
     emoji: "🏃",
-    accent: "#4ade80",
+    accent: "#16a34a",
     subtitle: "Season 3 · 2026",
     status: "tbd",
     date: "To Be Decided",
@@ -196,7 +196,7 @@ const events: Event[] = [
   {
     sport: "Pickleball",
     emoji: "🥏",
-    accent: "#f5a623",
+    accent: "#f97316",
     subtitle: "Season 3 · 2026",
     status: "tbd",
     date: "To Be Decided",
@@ -204,72 +204,110 @@ const events: Event[] = [
   },
 ];
 
+/* ── Contact chip — light themed ───────────────────────────────── */
 function ContactChip({ name, phone, accent }: { name: string; phone: string; accent: string }) {
   return (
     <a
       href={`tel:${phone.replace(/\s/g, "")}`}
-      className="flex items-center gap-2 px-4 py-2 rounded-xl border text-sm font-semibold
-                 transition-all duration-200 hover:opacity-80"
-      style={{ borderColor: accent + "45", color: accent, background: accent + "0d" }}
+      className="flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-semibold
+                 transition-all duration-200 hover:brightness-95 active:scale-[0.97]"
+      style={{ borderColor: accent + "35", color: accent, background: accent + "0c" }}
     >
-      📞 {name}: {phone}
+      📞 <span className="font-bold">{name}</span>
+      <span className="text-[10px] opacity-60 tabular-nums">{phone}</span>
     </a>
   );
 }
 
-function EventCard({ event }: { event: Event }) {
+/* ── Single event card ──────────────────────────────────────────── */
+function EventCard({ event, isFeatured }: { event: Event; isFeatured?: boolean }) {
   const [open, setOpen] = useState(false);
 
   const cardId = "event-" + event.sport.toLowerCase().replace(/\s+/g, "-");
   const isTbd  = event.status === "tbd";
 
   return (
+    <div>
+      {/* "Next Up" label row — only for the featured/soonest event */}
+      {isFeatured && (
+        <div className="flex items-center gap-2.5 mb-2 px-1">
+          <span className="relative flex-shrink-0 w-2 h-2">
+            <span className="animate-pulse-ring absolute inset-0 rounded-full bg-[#0057B7]"
+                  style={{ color: "#0057B7" }} />
+            <span className="relative block w-2 h-2 rounded-full bg-[#0057B7]" />
+          </span>
+          <span className="text-[10px] font-black uppercase tracking-[2.5px] text-[#0057B7]">
+            Next Up · {event.date}
+          </span>
+          <div className="flex-1 h-px bg-[#0057B7]/20" />
+        </div>
+      )}
+
     <div
       id={cardId}
-      className="rounded-2xl overflow-hidden transition-all duration-300"
+      className="rounded-2xl overflow-hidden transition-all duration-300 bg-white"
       style={{
-        background: open
-          ? `linear-gradient(145deg, ${event.accent}10 0%, rgba(255,255,255,0.02) 100%)`
-          : "rgba(255,255,255,0.025)",
-        border: `1px solid ${open ? event.accent + "55" : "rgba(255,255,255,0.08)"}`,
-        boxShadow: open ? `0 8px 40px ${event.accent}18` : "none",
+        border: open
+          ? `1px solid ${event.accent}45`
+          : isFeatured
+          ? `1.5px solid ${event.accent}55`
+          : "1px solid #e2e8f0",
+        boxShadow: open
+          ? `0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05)`
+          : isFeatured
+          ? `0 4px 20px ${event.accent}20`
+          : "0 2px 8px rgba(0,0,0,0.05)",
       }}
     >
       <div className="flex">
-        {/* Left accent bar */}
-        <div className="w-[3px] flex-shrink-0 transition-all duration-500 rounded-l-2xl"
-             style={{ background: open ? `linear-gradient(to bottom, ${event.accent}, ${event.accent}44)` : "transparent" }} />
+        {/* Left accent bar — always visible */}
+        <div
+          className="w-1 flex-shrink-0 rounded-l-2xl"
+          style={{
+            background: `linear-gradient(to bottom, ${event.accent}, ${event.accent}55)`,
+          }}
+        />
 
         <div className="flex-1 min-w-0">
           {/* Header row */}
-          <button className="w-full text-left px-5 py-5 flex items-center gap-4"
-                  onClick={() => setOpen(!open)}>
-            <div className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl flex-shrink-0"
-                 style={{
-                   background: event.accent + "1a",
-                   boxShadow: open ? `0 0 24px ${event.accent}35` : "none",
-                 }}>
+          <button
+            className="w-full text-left px-5 py-4 flex items-center gap-4"
+            onClick={() => setOpen(!open)}
+          >
+            {/* Emoji icon */}
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+              style={{ background: event.accent + "12" }}
+            >
               {event.emoji}
             </div>
 
             <div className="flex-1 min-w-0">
-              <p className="font-bold text-white text-lg leading-tight">{event.sport}</p>
+              <p className="font-bold text-slate-900 text-base leading-tight">{event.sport}</p>
               {event.subtitle && (
-                <p className="text-[11px] font-semibold tracking-widest uppercase mt-0.5"
-                   style={{ color: event.accent }}>
+                <p
+                  className="text-[11px] font-semibold tracking-widest uppercase mt-0.5"
+                  style={{ color: event.accent }}
+                >
                   {event.subtitle}
                 </p>
               )}
-              <div className="flex flex-wrap gap-2 mt-2.5">
+              <div className="flex flex-wrap gap-1.5 mt-2">
                 {event.date && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium"
-                        style={{ background: isTbd ? event.accent + "12" : "rgba(255,255,255,0.05)", color: isTbd ? event.accent : "#9ca3af" }}>
+                  <span
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium"
+                    style={
+                      isTbd
+                        ? { background: event.accent + "12", color: event.accent }
+                        : { background: "#f1f5f9", color: "#64748b" }
+                    }
+                  >
                     📅 {event.date}
                   </span>
                 )}
                 {event.time && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium text-gray-400"
-                        style={{ background: "rgba(255,255,255,0.05)" }}>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px]
+                                   font-medium bg-slate-100 text-slate-500">
                     ⏰ {event.time}
                   </span>
                 )}
@@ -277,31 +315,46 @@ function EventCard({ event }: { event: Event }) {
             </div>
 
             {/* Chevron */}
-            <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                 style={{
-                   background: open ? event.accent + "22" : "rgba(255,255,255,0.06)",
-                   transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                 }}>
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
+              style={{
+                background: open ? event.accent + "15" : "#f1f5f9",
+                transform: open ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            >
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                <path d="M2.5 4.5l4 4 4-4" stroke={open ? event.accent : "#666"}
-                      strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M2.5 4.5l4 4 4-4"
+                  stroke={open ? event.accent : "#94a3b8"}
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
           </button>
 
-          {/* Expanded body */}
+          {/* ── Expanded body ─────────────────────────────────── */}
           {open && (
-            <div className="px-5 pb-6 pt-4 space-y-5 border-t border-white/[0.06]">
+            <div className="px-5 pb-6 pt-4 space-y-5 border-t border-slate-100">
 
-              {/* Sub-events (e.g. Cricket + Legends Cricket) */}
+              {/* Sub-events (Cricket + Legends Cricket) */}
               {event.subEvents ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {event.subEvents.map((sub, i) => (
-                    <div key={i} className="rounded-xl p-4 space-y-3"
-                         style={{ background: sub.accent + "0a", border: `1px solid ${sub.accent}25` }}>
-                      <p className="font-bold text-sm" style={{ color: sub.accent }}>{sub.subtitle}</p>
+                    <div
+                      key={i}
+                      className="rounded-xl p-4 space-y-3"
+                      style={{
+                        background: sub.accent + "08",
+                        border: `1px solid ${sub.accent}28`,
+                      }}
+                    >
+                      <p className="font-bold text-sm" style={{ color: sub.accent }}>
+                        {sub.subtitle}
+                      </p>
                       {sub.note && (
-                        <p className="text-xs text-gray-500">{sub.note}</p>
+                        <p className="text-xs text-slate-500">{sub.note}</p>
                       )}
                       <div className="flex flex-wrap gap-2">
                         {sub.contacts?.map((c) => (
@@ -311,13 +364,16 @@ function EventCard({ event }: { event: Event }) {
                     </div>
                   ))}
                 </div>
+
               ) : isTbd ? (
-                /* TBD event — minimal view */
+                /* TBD event — compact view */
                 <div className="space-y-4">
-                  <div className="flex items-start gap-3 text-sm text-gray-400 rounded-xl px-4 py-3"
-                       style={{ background: event.accent + "08" }}>
+                  <div
+                    className="flex items-start gap-3 text-sm text-slate-500 rounded-xl px-4 py-3"
+                    style={{ background: event.accent + "08" }}
+                  >
                     <span className="mt-0.5">🔜</span>
-                    <span>Schedule & registration details will be announced soon. Contact the coordinator for updates.</span>
+                    <span>Schedule &amp; registration details will be announced soon. Contact the coordinator for updates.</span>
                   </div>
                   {event.contacts && (
                     <div className="flex flex-wrap gap-2">
@@ -327,32 +383,41 @@ function EventCard({ event }: { event: Event }) {
                     </div>
                   )}
                 </div>
+
               ) : (
                 /* Full confirmed event */
                 <>
                   {event.venue && (
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm"
-                           style={{ background: event.accent + "18" }}>
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm bg-slate-100">
                         📍
                       </div>
                       <div>
-                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-0.5"
-                           style={{ color: event.accent + "99" }}>Venue</p>
-                        <p className="text-white text-sm">{event.venue}</p>
+                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-0.5 text-slate-400">
+                          Venue
+                        </p>
+                        <p className="text-slate-800 text-sm">{event.venue}</p>
                       </div>
                     </div>
                   )}
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {event.categories && (
-                      <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
-                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
-                           style={{ color: event.accent + "99" }}>Categories</p>
+                      <div className="rounded-xl p-4 bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5 text-slate-400">
+                          Categories
+                        </p>
                         <div className="flex flex-wrap gap-2">
                           {event.categories.map((c) => (
-                            <span key={c} className="px-2.5 py-1 rounded-lg text-xs font-semibold border"
-                                  style={{ borderColor: event.accent + "45", color: event.accent, background: event.accent + "12" }}>
+                            <span
+                              key={c}
+                              className="px-2.5 py-1 rounded-lg text-xs font-semibold border"
+                              style={{
+                                borderColor: event.accent + "40",
+                                color: event.accent,
+                                background: event.accent + "0d",
+                              }}
+                            >
                               {c}
                             </span>
                           ))}
@@ -360,14 +425,15 @@ function EventCard({ event }: { event: Event }) {
                       </div>
                     )}
                     {event.fees && (
-                      <div className="rounded-xl p-4" style={{ background: event.accent + "0a" }}>
-                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5"
-                           style={{ color: event.accent + "99" }}>Registration Fees</p>
+                      <div className="rounded-xl p-4 bg-slate-50 border border-slate-100">
+                        <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5 text-slate-400">
+                          Registration Fees
+                        </p>
                         <div className="space-y-1.5">
                           {event.fees.map((f) => (
                             <p key={f.label} className="text-sm">
-                              <span className="text-gray-500">{f.label}: </span>
-                              <span className="text-white font-semibold">{f.amount}</span>
+                              <span className="text-slate-400">{f.label}: </span>
+                              <span className="text-slate-900 font-semibold">{f.amount}</span>
                             </p>
                           ))}
                         </div>
@@ -377,14 +443,17 @@ function EventCard({ event }: { event: Event }) {
 
                   {event.rules && (
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[2px] mb-3"
-                         style={{ color: event.accent + "99" }}>Tournament Rules</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[2px] mb-3 text-slate-400">
+                        Tournament Rules
+                      </p>
                       <ul className="space-y-2.5">
                         {event.rules.map((r, i) => (
-                          <li key={i} className="flex gap-3 text-sm text-gray-300">
-                            <span className="w-5 h-5 rounded-full flex items-center justify-center
-                                             text-[10px] font-bold flex-shrink-0 mt-0.5"
-                                  style={{ background: event.accent + "22", color: event.accent }}>
+                          <li key={i} className="flex gap-3 text-sm text-slate-600">
+                            <span
+                              className="w-5 h-5 rounded-full flex items-center justify-center
+                                         text-[10px] font-bold flex-shrink-0 mt-0.5"
+                              style={{ background: event.accent + "15", color: event.accent }}
+                            >
                               {i + 1}
                             </span>
                             {r}
@@ -396,16 +465,37 @@ function EventCard({ event }: { event: Event }) {
 
                   {event.registrationUrl && (
                     <div>
-                      <a href={event.registrationUrl} target="_blank" rel="noopener noreferrer"
-                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold
-                                    text-white transition-all duration-200 hover:scale-[1.03] hover:brightness-110 active:scale-100"
-                         style={{
-                           background: `linear-gradient(135deg, ${event.accent}, ${event.accent}bb)`,
-                           boxShadow: `0 4px 20px ${event.accent}40`,
-                         }}>
+                      <a
+                        href={event.registrationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold
+                                   text-white transition-all duration-200 hover:scale-[1.03]
+                                   hover:brightness-110 active:scale-100"
+                        style={{
+                          background: `linear-gradient(135deg, ${event.accent}, ${event.accent}cc)`,
+                          boxShadow: `0 4px 16px ${event.accent}30`,
+                        }}
+                      >
                         📋 Register Now →
                       </a>
-                      <p className="text-[10px] text-gray-600 mt-2 ml-1">Opens Google Form in a new tab</p>
+                      <p className="text-[10px] text-slate-400 mt-2 ml-1">
+                        Opens Google Form in a new tab
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Contacts — confirmed events */}
+                  {event.contacts && (
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[2px] mb-2.5 text-slate-400">
+                        Coordinators
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {event.contacts.map((c) => (
+                          <ContactChip key={c.name} name={c.name} phone={c.phone} accent={event.accent} />
+                        ))}
+                      </div>
                     </div>
                   )}
                 </>
@@ -413,22 +503,21 @@ function EventCard({ event }: { event: Event }) {
 
               {/* WhatsApp — always shown when expanded */}
               {event.whatsapp && (
-                <div className="pt-1">
-                  <a href={event.whatsapp} target="_blank" rel="noopener noreferrer"
-                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
-                                transition-all duration-200 hover:bg-[#25d366]/20"
-                     style={{ background: "rgba(37,211,102,0.1)", border: "1px solid rgba(37,211,102,0.3)", color: "#25d366" }}>
+                <div className="pt-1 border-t border-slate-100">
+                  <a
+                    href={event.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold
+                               transition-all duration-200 hover:brightness-95"
+                    style={{
+                      background: "rgba(22,163,74,0.08)",
+                      border: "1px solid rgba(22,163,74,0.25)",
+                      color: "#16a34a",
+                    }}
+                  >
                     💬 WhatsApp Group →
                   </a>
-                </div>
-              )}
-
-              {/* Contacts for confirmed events */}
-              {!event.subEvents && !isTbd && event.contacts && (
-                <div className="flex flex-wrap gap-2">
-                  {event.contacts.map((c) => (
-                    <ContactChip key={c.name} name={c.name} phone={c.phone} accent={event.accent} />
-                  ))}
                 </div>
               )}
             </div>
@@ -436,31 +525,48 @@ function EventCard({ event }: { event: Event }) {
         </div>
       </div>
     </div>
+    </div>
   );
 }
 
+/* ── Section ────────────────────────────────────────────────────── */
 export default function Schedule() {
-  return (
-    <section id="schedule" className="relative py-24 px-6 bg-[#080d1e] dot-grid overflow-hidden">
+  /* The soonest event with a real confirmed date — gets a "Next Up" badge */
+  const featuredSport = events.find(
+    (e) =>
+      e.status === "confirmed" &&
+      e.date &&
+      !e.date.toLowerCase().includes("decided") &&
+      !e.date.toLowerCase().includes("tbd"),
+  )?.sport;
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[280px]
-                      bg-[#F0B429]/5 blur-[100px] rounded-full pointer-events-none" />
+  return (
+    <section id="schedule" className="relative py-24 px-6 bg-[#f1f5f9] dot-grid overflow-hidden">
+
+      {/* Subtle top stripe */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-slate-200 pointer-events-none" />
 
       <div className="relative z-10">
-        <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
+        <p className="text-center text-[11px] font-bold tracking-[4px] uppercase text-[#0057B7] mb-2">
           Season 3
         </p>
-        <h2 className="font-barlow font-black text-white uppercase text-center
+        <h2 className="font-barlow font-black text-slate-900 uppercase text-center
                        text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
           Event Schedule
         </h2>
-        <div className="w-14 h-1 bg-gradient-to-r from-[#F0B429] to-red-500 rounded-full mx-auto mb-5" />
-        <p className="text-gray-400 text-center text-sm mb-14 max-w-xl mx-auto">
+        <div className="w-14 h-1 bg-gradient-to-r from-[#0057B7] to-[#F0B429] rounded-full mx-auto mb-5" />
+        <p className="text-slate-500 text-center text-sm mb-10 max-w-xl mx-auto">
           Click on any event to see full details, rules, fees and register.
         </p>
 
         <div className="max-w-3xl mx-auto space-y-3">
-          {events.map((e) => <EventCard key={e.sport} event={e} />)}
+          {events.map((e) => (
+            <EventCard
+              key={e.sport}
+              event={e}
+              isFeatured={e.sport === featuredSport}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -86,23 +86,22 @@ export default function Gallery() {
   const item: MediaItem | null = lightbox !== null ? filtered[lightbox] : null;
 
   return (
-    <section id="gallery" className="relative py-24 px-6 bg-[#07091a] overflow-hidden">
+    <section id="gallery" className="relative py-24 px-6 bg-white overflow-hidden">
 
-      {/* Background glow */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[300px]
-                      bg-[#F0B429]/4 blur-[120px] rounded-full pointer-events-none" />
+      {/* Subtle top accent */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-slate-100 pointer-events-none" />
 
       {/* Header */}
       <div className="relative z-10 max-w-5xl mx-auto">
-        <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
+        <p className="text-center text-[11px] font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
           Memories
         </p>
-        <h2 className="font-barlow font-black text-white uppercase text-center
+        <h2 className="font-barlow font-black text-slate-900 uppercase text-center
                        text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
           Previous Seasons
         </h2>
         <div className="w-14 h-1 bg-gradient-to-r from-[#F0B429] to-red-500 rounded-full mx-auto mb-5" />
-        <p className="text-gray-400 text-center text-sm mb-10">
+        <p className="text-slate-500 text-center text-sm mb-10">
           Relive the excitement from Season 1 &amp; Season 2
         </p>
 
@@ -111,14 +110,18 @@ export default function Gallery() {
           {seasons.map((s) => {
             const isActive = active === s;
             return (
-              <button key={s} onClick={() => setActive(s)}
-                      className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest
-                                 border transition-all duration-200"
-                      style={{
-                        background:  isActive ? "#F0B429"              : "rgba(255,255,255,0.04)",
-                        borderColor: isActive ? "#F0B429"              : "rgba(255,255,255,0.12)",
-                        color:       isActive ? "#000"                 : "#9ca3af",
-                      }}>
+              <button
+                key={s}
+                onClick={() => setActive(s)}
+                className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest
+                           border transition-all duration-200"
+                style={{
+                  background:  isActive ? "#0057B7"    : "white",
+                  borderColor: isActive ? "#0057B7"    : "#e2e8f0",
+                  color:       isActive ? "#ffffff"    : "#64748b",
+                  boxShadow:   isActive ? "0 2px 12px rgba(0,87,183,0.25)" : "none",
+                }}
+              >
                 {s}
               </button>
             );
@@ -128,35 +131,42 @@ export default function Gallery() {
         {/* Masonry grid */}
         <div className="columns-2 sm:columns-3 md:columns-4 gap-3">
           {filtered.map((item, i) => (
-            <div key={`${active}-${i}`}
-                 className="break-inside-avoid mb-3 relative rounded-xl overflow-hidden
-                            cursor-pointer group border border-white/[0.07] bg-white/[0.03]"
-                 onClick={() => setLightbox(i)}>
-
+            <div
+              key={`${active}-${i}`}
+              className="break-inside-avoid mb-3 relative rounded-xl overflow-hidden
+                         cursor-pointer group border border-slate-100
+                         shadow-[0_2px_8px_rgba(0,0,0,0.06)]
+                         hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]
+                         transition-shadow duration-300"
+              onClick={() => setLightbox(i)}
+            >
               {item.type === "video" ? (
                 <>
                   <video src={item.src} className="w-full h-auto block" muted playsInline
                          onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = "none"; }} />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm
+                    <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm
                                     border border-white/30 flex items-center justify-center">
                       <PlayIcon />
                     </div>
                   </div>
                 </>
               ) : (
-                <img src={item.src} alt={item.caption}
-                     className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
-                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+                <img
+                  src={item.src}
+                  alt={item.caption}
+                  className="w-full h-auto block transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                />
               )}
 
               {/* Hover overlay */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300
                               flex flex-col justify-end"
-                   style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)" }}>
+                   style={{ background: "linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.25) 50%, transparent 100%)" }}>
                 <div className="p-3">
                   <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest mb-1"
-                        style={{ background: "rgba(240,180,41,0.25)", color: "#F0B429" }}>
+                        style={{ background: "rgba(240,180,41,0.28)", color: "#F0B429" }}>
                     {item.season}
                   </span>
                   {item.caption && (
@@ -168,7 +178,7 @@ export default function Gallery() {
               {/* Video badge always visible */}
               {item.type === "video" && (
                 <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[9px]
-                                font-bold uppercase tracking-wider bg-black/60 text-white/80 backdrop-blur-sm">
+                                font-bold uppercase tracking-wider bg-black/50 text-white/90 backdrop-blur-sm">
                   Video
                 </div>
               )}
@@ -180,7 +190,7 @@ export default function Gallery() {
       {/* ── Lightbox ── */}
       {item && (
         <div className="fixed inset-0 z-50 flex items-center justify-center"
-             style={{ background: "rgba(0,0,0,0.96)", backdropFilter: "blur(12px)" }}
+             style={{ background: "rgba(0,0,0,0.95)", backdropFilter: "blur(12px)" }}
              onClick={() => setLightbox(null)}>
 
           {/* Close */}
@@ -229,7 +239,7 @@ export default function Gallery() {
             <div>
               <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase
                                tracking-widest mr-2"
-                    style={{ background: "rgba(240,180,41,0.2)", color: "#F0B429" }}>
+                    style={{ background: "rgba(240,180,41,0.22)", color: "#F0B429" }}>
                 {item.season}
               </span>
               {item.caption && (
