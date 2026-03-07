@@ -106,28 +106,20 @@ export default function Gallery() {
           Relive the excitement from Season 1 &amp; Season 2
         </p>
 
-        {/* Filter tabs with counts */}
+        {/* Filter tabs */}
         <div className="flex justify-center gap-2 mb-10 flex-wrap">
           {seasons.map((s) => {
-            const count = s === "All" ? media.length : media.filter((m) => m.season === s).length;
             const isActive = active === s;
             return (
               <button key={s} onClick={() => setActive(s)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold
-                                 uppercase tracking-widest border transition-all duration-200"
+                      className="px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest
+                                 border transition-all duration-200"
                       style={{
-                        background:   isActive ? "#F0B429"            : "rgba(255,255,255,0.04)",
-                        borderColor:  isActive ? "#F0B429"            : "rgba(255,255,255,0.12)",
-                        color:        isActive ? "#000"               : "#9ca3af",
+                        background:  isActive ? "#F0B429"              : "rgba(255,255,255,0.04)",
+                        borderColor: isActive ? "#F0B429"              : "rgba(255,255,255,0.12)",
+                        color:       isActive ? "#000"                 : "#9ca3af",
                       }}>
                 {s}
-                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-black"
-                      style={{
-                        background: isActive ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.08)",
-                        color:      isActive ? "#000"            : "#6b7280",
-                      }}>
-                  {count}
-                </span>
               </button>
             );
           })}

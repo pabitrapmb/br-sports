@@ -1,57 +1,37 @@
 "use client";
 
 const contacts = [
-  { sport: "Badminton",          name: "Soham",    phone: "97555 52414", color: "#22d3ee" },
-  { sport: "Badminton",          name: "Prashant", phone: "91600 55003", color: "#22d3ee" },
-  { sport: "Table Tennis",       name: "Prashant", phone: "91600 55003", color: "#F0B429" },
-  { sport: "Table Tennis",       name: "Soham",    phone: "97555 52414", color: "#F0B429" },
-  { sport: "Chess",              name: "Manoj",    phone: "97730 22017", color: "#a78bfa" },
-  { sport: "Chess",              name: "Bhaskar",  phone: "77200 32006", color: "#a78bfa" },
-  { sport: "Carrom",             name: "Manoj",    phone: "97730 22017", color: "#f472b6" },
-  { sport: "Carrom",             name: "Bhaskar",  phone: "77200 32006", color: "#f472b6" },
-  { sport: "Cricket",            name: "Rohan",    phone: "99607 59184", color: "#ef4444" },
-  { sport: "Cricket",            name: "Upen",     phone: "99750 83121", color: "#ef4444" },
-  { sport: "Football",           name: "Jitendra", phone: "70309 36272", color: "#22c55e" },
-  { sport: "Football",           name: "Chanchal", phone: "80870 50514", color: "#22c55e" },
-  { sport: "Cycling",            name: "Satilal",  phone: "99224 59784", color: "#60a5fa" },
-  { sport: "Mini Marathon",      name: "Abhishek", phone: "99308 44415", color: "#4ade80" },
-  { sport: "BR Legends Cricket", name: "Pabitra",  phone: "98810 91733", color: "#3a86ff" },
-  { sport: "BR Legends Cricket", name: "Manoj",    phone: "97730 22017", color: "#3a86ff" },
+  { sport: "Badminton",          emoji: "🏸", name: "Soham",    phone: "97555 52414", color: "#22d3ee" },
+  { sport: "Badminton",          emoji: "🏸", name: "Prashant", phone: "91600 55003", color: "#22d3ee" },
+  { sport: "Table Tennis",       emoji: "🏓", name: "Prashant", phone: "91600 55003", color: "#F0B429" },
+  { sport: "Table Tennis",       emoji: "🏓", name: "Soham",    phone: "97555 52414", color: "#F0B429" },
+  { sport: "Chess",              emoji: "♟",  name: "Manoj",    phone: "97730 22017", color: "#a78bfa" },
+  { sport: "Chess",              emoji: "♟",  name: "Bhaskar",  phone: "77200 32006", color: "#a78bfa" },
+  { sport: "Carrom",             emoji: "🎱", name: "Manoj",    phone: "97730 22017", color: "#f472b6" },
+  { sport: "Carrom",             emoji: "🎱", name: "Bhaskar",  phone: "77200 32006", color: "#f472b6" },
+  { sport: "Cricket",            emoji: "🏏", name: "Rohan",    phone: "99607 59184", color: "#ef4444" },
+  { sport: "Cricket",            emoji: "🏏", name: "Upen",     phone: "99750 83121", color: "#ef4444" },
+  { sport: "Football",           emoji: "⚽", name: "Jitendra", phone: "70309 36272", color: "#22c55e" },
+  { sport: "Football",           emoji: "⚽", name: "Chanchal", phone: "80870 50514", color: "#22c55e" },
+  { sport: "Cycling",            emoji: "🚴", name: "Satilal",  phone: "99224 59784", color: "#60a5fa" },
+  { sport: "Mini Marathon",      emoji: "🏃", name: "Abhishek", phone: "99308 44415", color: "#4ade80" },
+  { sport: "BR Legends Cricket", emoji: "🏏", name: "Pabitra",  phone: "98810 91733", color: "#3a86ff" },
+  { sport: "BR Legends Cricket", emoji: "🏏", name: "Manoj",    phone: "97730 22017", color: "#3a86ff" },
 ];
 
-const sportMeta: Record<string, { emoji: string }> = {
-  "Badminton":           { emoji: "🏸" },
-  "Table Tennis":        { emoji: "🏓" },
-  "Chess":               { emoji: "♟"  },
-  "Carrom":              { emoji: "🎱" },
-  "Cricket":             { emoji: "🏏" },
-  "Football":            { emoji: "⚽" },
-  "Cycling":             { emoji: "🚴" },
-  "Mini Marathon":       { emoji: "🏃" },
-  "BR Legends Cricket":  { emoji: "🏏" },
-};
-
-function PhoneIcon({ size = 14 }: { size?: number }) {
+function PhoneIcon() {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81
-               19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81
-               a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45
-               c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07
+               9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361
+               1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0
+               012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
     </svg>
   );
 }
 
 export default function Contacts() {
-  const grouped = contacts.reduce((acc, c) => {
-    if (!acc[c.sport]) acc[c.sport] = [];
-    acc[c.sport].push(c);
-    return acc;
-  }, {} as Record<string, typeof contacts>);
-
-  const sports = Object.keys(grouped);
-
   return (
     <section id="contacts" className="relative py-24 px-6 bg-[#0a0a0a] overflow-hidden">
 
@@ -76,75 +56,54 @@ export default function Contacts() {
           Reach out to your sport coordinator for registration help, queries, or any event info.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sports.map((sport) => {
-            const meta   = sportMeta[sport] ?? { emoji: "🏅" };
-            const color  = grouped[sport][0].color;
-            const people = grouped[sport];
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {contacts.map((c, i) => (
+            <a key={i}
+               href={`tel:${c.phone.replace(/\s/g, "")}`}
+               aria-label={`Call ${c.name} for ${c.sport}`}
+               className="group flex flex-col items-center text-center rounded-2xl px-4 py-6
+                          border border-white/[0.07] hover:border-white/20
+                          transition-all duration-300 hover:-translate-y-1"
+               style={{ background: `linear-gradient(160deg, ${c.color}0d, rgba(10,10,10,0.95))` }}>
 
-            return (
-              <div key={sport}
-                   className="rounded-2xl overflow-hidden border border-white/[0.07]
-                              hover:border-white/[0.15] transition-all duration-300 group/card"
-                   style={{ background: `linear-gradient(160deg, ${color}0e 0%, rgba(10,10,10,0.9) 60%)` }}>
+              {/* Sport badge */}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+                               text-[10px] font-bold uppercase tracking-widest mb-4"
+                    style={{ background: c.color + "18", color: c.color }}>
+                {c.emoji} {c.sport}
+              </span>
 
-                {/* Sport header */}
-                <div className="relative flex items-center gap-3 px-5 py-4 overflow-hidden"
-                     style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                  {/* Accent left bar */}
-                  <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-r"
-                       style={{ background: `linear-gradient(to bottom, ${color}, ${color}55)` }} />
-
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0
-                                  transition-transform duration-300 group/card-hover:scale-110"
-                       style={{ background: color + "22", boxShadow: `0 0 16px ${color}18` }}>
-                    {meta.emoji}
-                  </div>
-                  <div>
-                    <p className="font-bold text-white text-sm leading-tight">{sport}</p>
-                    <p className="text-[10px] uppercase tracking-widest mt-0.5"
-                       style={{ color: color + "99" }}>
-                      {people.length} coordinator{people.length > 1 ? "s" : ""}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Contact rows — full row is a tap-to-call link */}
-                <div className="divide-y divide-white/[0.05]">
-                  {people.map((c, i) => (
-                    <a key={i}
-                       href={`tel:${c.phone.replace(/\s/g, "")}`}
-                       className="flex items-center gap-3 px-5 py-4 transition-all duration-200
-                                  hover:bg-white/[0.04] group/row"
-                       aria-label={`Call ${c.name} on ${c.phone}`}>
-
-                      {/* Avatar */}
-                      <div className="w-9 h-9 rounded-full flex items-center justify-center
-                                      text-sm font-black flex-shrink-0 transition-all duration-200
-                                      group-hover/row:scale-110"
-                           style={{ background: color + "28", color }}>
-                        {c.name[0]}
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-white text-sm leading-tight">{c.name}</p>
-                        <p className="text-gray-500 text-xs mt-0.5 tabular-nums">{c.phone}</p>
-                      </div>
-
-                      {/* Call pill */}
-                      <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px]
-                                       font-bold uppercase tracking-wide flex-shrink-0 transition-all duration-200
-                                       opacity-60 group-hover/row:opacity-100 group-hover/row:scale-105"
-                            style={{ background: color + "20", color }}>
-                        <PhoneIcon size={11} />
-                        Call
-                      </span>
-                    </a>
-                  ))}
-                </div>
+              {/* Avatar */}
+              <div className="w-14 h-14 rounded-full flex items-center justify-center
+                              text-xl font-black mb-3 transition-transform duration-300
+                              group-hover:scale-110"
+                   style={{
+                     background: `linear-gradient(135deg, ${c.color}30, ${c.color}10)`,
+                     color: c.color,
+                     boxShadow: `0 0 20px ${c.color}20`,
+                   }}>
+                {c.name[0]}
               </div>
-            );
-          })}
+
+              {/* Name */}
+              <p className="font-bold text-white text-sm mb-1">{c.name}</p>
+
+              {/* Phone */}
+              <p className="text-gray-500 text-xs tabular-nums mb-4">{c.phone}</p>
+
+              {/* Call button */}
+              <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg
+                               text-[11px] font-bold uppercase tracking-wide
+                               transition-all duration-200 group-hover:scale-105"
+                    style={{
+                      background: c.color + "20",
+                      color: c.color,
+                      border: `1px solid ${c.color}35`,
+                    }}>
+                <PhoneIcon /> Call
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
