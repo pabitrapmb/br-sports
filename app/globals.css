@@ -1,60 +1,109 @@
 @import "tailwindcss";
 
 :root {
-  --font-bebas: "Bebas Neue", Impact, sans-serif;
-  --font-poppins: "Poppins", system-ui, sans-serif;
+  --font-barlow: "Barlow Condensed", "Bebas Neue", Impact, sans-serif;
+  --font-inter:  "Inter", system-ui, sans-serif;
+  --font-bebas:  "Bebas Neue", Impact, sans-serif;
+
+  --navy:       #080808;
+  --navy-mid:   #0f0f0f;
+  --navy-light: #161616;
+  --blue:       #0057B7;
+  --blue-light: #1a6fd4;
+  --gold:       #F0B429;
+  --gold-dark:  #C8941A;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: var(--font-poppins, "Poppins", sans-serif);
-  background: #0d0d1a;
+  font-family: var(--font-inter, "Inter", system-ui, sans-serif);
+  background: var(--navy);
   color: white;
   overflow-x: hidden;
 }
 
-.font-bebas {
-  font-family: var(--font-bebas, "Bebas Neue", sans-serif);
-}
+.font-barlow { font-family: var(--font-barlow); }
+.font-bebas  { font-family: var(--font-bebas); }
+.font-inter  { font-family: var(--font-inter); }
 
+/* ─── Animations ─────────────────────────────── */
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-25px); }
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-22px); }
 }
-
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
 
-.animate-float { animation: float 8s ease-in-out infinite; }
-.animate-float-delay-3 { animation: float 8s ease-in-out -3s infinite; }
-.animate-float-delay-6 { animation: float 8s ease-in-out -6s infinite; }
+.animate-float         { animation: float      8s ease-in-out infinite; }
+.animate-float-delay-3 { animation: float      8s ease-in-out -3s infinite; }
+.animate-float-delay-6 { animation: float      8s ease-in-out -6s infinite; }
+.animate-fade-down     { animation: fadeDown   0.8s ease both; }
+.animate-fade-down-2   { animation: fadeDown   1.0s ease both; }
+.animate-fade-down-3   { animation: fadeDown   1.2s ease both; }
+.animate-fade-up       { animation: fadeUp     1.3s ease both; }
+.animate-fade-up-2     { animation: fadeUp     1.5s ease both; }
+.animate-slide-right   { animation: slideRight 1.0s ease both; }
+.animate-slide-left    { animation: slideLeft  1.0s ease both; }
 
-.animate-fade-down   { animation: fadeDown 0.8s ease both; }
-.animate-fade-down-2 { animation: fadeDown 1.0s ease both; }
-.animate-fade-down-3 { animation: fadeDown 1.2s ease both; }
-.animate-fade-up     { animation: fadeUp  1.3s ease both; }
-.animate-fade-up-2   { animation: fadeUp  1.4s ease both; }
-
+/* ─── Text gradient utilities ─────────────────── */
 .gradient-text {
-  background: linear-gradient(90deg, #fff 0%, #f5a623 50%, #ff6b35 100%);
+  background: linear-gradient(90deg, #fff 0%, #F0B429 55%, #FF8C00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-white-gold {
+  background: linear-gradient(90deg, #fff, #F0B429);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-blue {
+  background: linear-gradient(90deg, #60a5fa, #c084fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-text-white-gold {
-  background: linear-gradient(90deg, #fff, #f5a623);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ─── Olympic-style 5-color stripe ───────────── */
+.olympic-stripe {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #0085C7 0% 20%,
+    #F4C300 20% 40%,
+    #333333 40% 60%,
+    #009F3D 60% 80%,
+    #DF0024 80% 100%
+  );
+}
+
+/* ─── Dot grid background ─────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ─── Card hover effect ───────────────────────── */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0, 87, 183, 0.25);
 }

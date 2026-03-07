@@ -15,13 +15,13 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <About />
-        <Sports />
-        <Schedule />
-        <Gallery />
-        <Contacts />
-        <Community />
-        <Sponsors />
+        <About />       {/* white section */}
+        <Sports />      {/* dark navy section */}
+        <Schedule />    {/* darkest navy section */}
+        <Gallery />     {/* dark section */}
+        <Contacts />    {/* white section */}
+        <Community />   {/* dark navy section */}
+        <Sponsors />    {/* white section */}
       </main>
       <Footer />
     </>

@@ -1,73 +1,105 @@
 "use client";
 
 const contacts = [
-  { sport: "Football",              name: "Jitendra", phone: "70309 36272", emoji: "⚽", accent: "#e63946" },
-  { sport: "Football",              name: "Chanchal", phone: "80870 50514", emoji: "⚽", accent: "#e63946" },
-  { sport: "Badminton | TT",        name: "Soham",    phone: "97555 52414", emoji: "🏸", accent: "#00b4d8" },
-  { sport: "Badminton | TT",        name: "Prashant", phone: "91600 55003", emoji: "🏓", accent: "#00b4d8" },
-  { sport: "Carrom | Chess",        name: "Manoj",    phone: "97730 22017", emoji: "♟",  accent: "#7b2d8b" },
-  { sport: "Carrom | Chess",        name: "Bhaskar",  phone: "77200 32006", emoji: "🎱", accent: "#7b2d8b" },
-  { sport: "Running | Cycling",     name: "Satilal",  phone: "99224 59784", emoji: "🚴", accent: "#2dc653" },
-  { sport: "Running | Cycling",     name: "Abhishek", phone: "99308 44415", emoji: "🏃", accent: "#2dc653" },
-  { sport: "Cricket",               name: "Rohan",    phone: "99607 59184", emoji: "🏏", accent: "#f5a623" },
-  { sport: "Cricket",               name: "Upen",     phone: "99750 83121", emoji: "🏏", accent: "#f5a623" },
-  { sport: "BR Legends Cricket",    name: "Pabitra",  phone: "98810 91733", emoji: "🏆", accent: "#3a86ff" },
-  { sport: "BR Legends Cricket",    name: "Manoj",    phone: "97730 22017", emoji: "🏆", accent: "#3a86ff" },
+  { sport: "Badminton",     name: "Soham",    phone: "97555 52414", color: "#22d3ee" },
+  { sport: "Badminton",     name: "Prashant", phone: "91600 55003", color: "#22d3ee" },
+
+  { sport: "Table Tennis",  name: "Prashant", phone: "91600 55003", color: "#F0B429" },
+  { sport: "Table Tennis",  name: "Soham",    phone: "97555 52414", color: "#F0B429" },
+
+  { sport: "Chess",         name: "Manoj",    phone: "97730 22017", color: "#a78bfa" },
+  { sport: "Chess",         name: "Bhaskar",  phone: "77200 32006", color: "#a78bfa" },
+
+  { sport: "Carrom",        name: "Manoj",    phone: "97730 22017", color: "#f472b6" },
+  { sport: "Carrom",        name: "Bhaskar",  phone: "77200 32006", color: "#f472b6" },
+
+  { sport: "Cricket",       name: "Rohan",    phone: "99607 59184", color: "#ef4444" },
+  { sport: "Cricket",       name: "Upen",     phone: "99750 83121", color: "#ef4444" },
+
+  { sport: "Football",      name: "Jitendra", phone: "70309 36272", color: "#22c55e" },
+  { sport: "Football",      name: "Chanchal", phone: "80870 50514", color: "#22c55e" },
+
+  { sport: "Cycling",       name: "Satilal",  phone: "99224 59784", color: "#60a5fa" },
+  { sport: "Mini Marathon", name: "Abhishek", phone: "99308 44415", color: "#4ade80" },
+
+  { sport: "BR Legends Cricket", name: "Pabitra", phone: "98810 91733", color: "#3a86ff" },
+  { sport: "BR Legends Cricket", name: "Manoj",   phone: "97730 22017", color: "#3a86ff" },
 ];
 
 export default function Contacts() {
   return (
-    <section
-      id="contacts"
-      className="py-24 px-6"
-      style={{ background: "linear-gradient(180deg, #0b0b1e 0%, #0d0d1a 100%)" }}
-    >
-      <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#f5a623] mb-2">
-        Connect With Us
-      </p>
-      <h2 className="font-bebas gradient-text-white-gold text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
-        Sport Coordinators
-      </h2>
-      <div className="w-14 h-1 bg-gradient-to-r from-[#f5a623] to-red-500 rounded-full mx-auto mb-5" />
-      <p className="text-gray-400 text-center max-w-xl mx-auto text-sm leading-relaxed mb-3">
-        Reach out for nominations, team registrations, and collaborations. Cricket &amp; Football
-        captains — form your team and get in touch today!
-      </p>
-      <p className="text-center text-gray-400 text-xs mb-12">
-        📋 Team details format:{" "}
-        <span className="text-white font-semibold">
-          Team Name &amp; Player Name – Tower/Flat No – Mobile No – Age
-        </span>
-      </p>
+    <section id="contacts" className="py-24 px-6 bg-white">
+      <div className="max-w-5xl mx-auto">
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
-        {contacts.map((c, i) => (
-          <div
-            key={`${c.name}-${i}`}
-            className="bg-white/[0.04] border border-white/10 rounded-2xl px-5 py-5
-                       flex items-center gap-4 transition-all duration-300 hover:-translate-y-1"
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLDivElement).style.borderColor = c.accent;
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.1)";
-            }}
-          >
+        <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#0057B7] mb-3">
+          Need Help?
+        </p>
+        <h2 className="font-barlow font-black text-[#050c18] text-center uppercase
+                       text-[clamp(2rem,6vw,3.2rem)] tracking-wide mb-4">
+          Coordinators
+        </h2>
+        <div className="w-16 h-1.5 rounded-full mx-auto mb-5"
+             style={{ background: "linear-gradient(90deg, #0057B7, #F0B429)" }} />
+        <p className="text-gray-500 text-center text-sm mb-14 max-w-lg mx-auto">
+          Reach out to your sport coordinator for registration help, queries, or any event info.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {contacts.map((c, i) => (
             <div
-              className="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ background: `${c.accent}20` }}
+              key={i}
+              className="card-hover bg-white border border-gray-100 rounded-2xl p-5
+                         flex items-center gap-4 shadow-sm"
             >
-              {c.emoji}
+              {/* Avatar */}
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center
+                              text-lg font-black text-white flex-shrink-0"
+                   style={{ background: c.color }}>
+                {c.name !== "TBA" ? c.name[0] : "?"}
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-[2px] mb-0.5"
+                   style={{ color: c.color }}>
+                  {c.sport}
+                </p>
+                <p className="font-bold text-[#050c18] text-sm truncate">{c.name}</p>
+                {c.phone !== "—" ? (
+                  <a
+                    href={`tel:${c.phone.replace(/\s/g, "")}`}
+                    className="text-gray-400 text-xs hover:text-[#0057B7] transition-colors"
+                  >
+                    {c.phone}
+                  </a>
+                ) : (
+                  <p className="text-gray-300 text-xs">To be announced</p>
+                )}
+              </div>
+
+              {c.phone !== "—" && (
+                <a
+                  href={`tel:${c.phone.replace(/\s/g, "")}`}
+                  className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0
+                             border border-gray-100 hover:border-transparent transition-all duration-200
+                             hover:text-white text-lg"
+                  style={{
+                    color: c.color,
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = c.color;
+                    (e.currentTarget as HTMLElement).style.color = "white";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = "transparent";
+                    (e.currentTarget as HTMLElement).style.color = c.color;
+                  }}
+                >
+                  📞
+                </a>
+              )}
             </div>
-            <div>
-              <p className="text-[10px] font-bold tracking-[2px] uppercase text-gray-500 mb-0.5">
-                {c.sport}
-              </p>
-              <p className="font-bold text-white">{c.name}</p>
-              <p className="text-[#f5a623] text-sm">📞 {c.phone}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

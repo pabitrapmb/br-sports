@@ -20,8 +20,7 @@ const media = [
   { type: "image",src: "/gallery/AwardsNight/AwardsNight3.jpg", season: "Season 2", caption: "Awards Night" },
   { type: "image",src: "/gallery/AwardsNight/AwardsNight4.jpg", season: "Season 2", caption: "Awards Night" },
   { type: "video", src: "/gallery/AwardsNight/AwardsNight5.mp4", season: "Season 2", caption: "Awards Night" },
-  
-  // Add more photos here...
+  // Add more here...
 ];
 
 type MediaItem = { type: string; src: string; season: string; caption: string };
@@ -29,17 +28,17 @@ type MediaItem = { type: string; src: string; season: string; caption: string };
 const seasons = ["All", ...Array.from(new Set(media.map((m) => m.season)))];
 
 export default function Gallery() {
-  const [active, setActive]    = useState("All");
+  const [active, setActive]   = useState("All");
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
 
   const filtered = active === "All" ? media : media.filter((m) => m.season === active);
 
   return (
-    <section id="gallery" className="py-24 px-6 bg-[#0d0d1a]">
-      <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#f5a623] mb-2">
+    <section id="gallery" className="py-24 px-6 bg-[#080808]">
+      <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
         Memories
       </p>
-      <h2 className="font-bebas gradient-text-white-gold text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
+      <h2 className="font-barlow font-black text-white uppercase text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
         Previous Seasons
       </h2>
       <div className="w-14 h-1 bg-gradient-to-r from-[#f5a623] to-red-500 rounded-full mx-auto mb-5" />
@@ -56,7 +55,7 @@ export default function Gallery() {
             className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest border-2 transition-all
               ${active === s
                 ? "bg-[#f5a623] border-[#f5a623] text-black"
-                : "border-white/20 text-gray-400 hover:border-[#f5a623]/60 hover:text-[#f5a623]"
+                : "border-white/20 text-gray-400 hover:border-[#f5a623]/60 hover:text-[#F0B429]"
               }`}
           >
             {s}
@@ -73,6 +72,7 @@ export default function Gallery() {
             onClick={() => setLightbox(item as MediaItem)}
           >
             {item.type === "video" ? (
+              /* ── Video thumbnail ── */
               <>
                 <video
                   src={item.src}
@@ -81,6 +81,7 @@ export default function Gallery() {
                   playsInline
                   onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = "none"; }}
                 />
+                {/* Play badge */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-12 h-12 rounded-full bg-black/60 border-2 border-white/80 flex items-center justify-center">
                     <span className="text-white text-xl ml-1">▶</span>
@@ -88,6 +89,7 @@ export default function Gallery() {
                 </div>
               </>
             ) : (
+              /* ── Image thumbnail ── */
               <img
                 src={item.src}
                 alt={item.caption || item.season}
@@ -99,7 +101,7 @@ export default function Gallery() {
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 p-3">
               <span className="text-white text-2xl">{item.type === "video" ? "▶" : "🔍"}</span>
-              <span className="text-[#f5a623] text-xs font-bold uppercase tracking-widest">{item.season}</span>
+              <span className="text-[#F0B429] text-xs font-bold uppercase tracking-widest">{item.season}</span>
               {item.caption && <span className="text-white text-xs text-center">{item.caption}</span>}
             </div>
           </div>
@@ -113,7 +115,7 @@ export default function Gallery() {
           onClick={() => setLightbox(null)}
         >
           <button
-            className="absolute top-5 right-6 text-white text-3xl font-bold hover:text-[#f5a623] transition z-10"
+            className="absolute top-5 right-6 text-white text-3xl font-bold hover:text-[#F0B429] transition z-10"
             onClick={() => setLightbox(null)}
           >
             ✕

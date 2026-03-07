@@ -297,14 +297,14 @@ export default function Schedule() {
   const soon      = events.filter((e) => e.status === "soon");
 
   return (
-    <section id="schedule" className="py-24 px-6 bg-[#0b0b1e]">
-      <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#f5a623] mb-2">
+    <section id="schedule" className="py-24 px-6 bg-[#080808]">
+      <p className="text-center text-xs font-bold tracking-[4px] uppercase text-[#F0B429] mb-2">
         Season 3
       </p>
-      <h2 className="font-bebas gradient-text-white-gold text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
+      <h2 className="font-barlow font-black text-white uppercase text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
         Event Schedule
       </h2>
-      <div className="w-14 h-1 bg-gradient-to-r from-[#f5a623] to-red-500 rounded-full mx-auto mb-5" />
+      <div className="w-14 h-1 bg-gradient-to-r from-[#F0B429] to-red-500 rounded-full mx-auto mb-5" />
       <p className="text-gray-400 text-center text-sm mb-14 max-w-xl mx-auto">
         Click on any event to see full details, rules, fees and register.
       </p>

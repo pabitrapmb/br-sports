@@ -1,25 +1,41 @@
 export default function Sponsors() {
   return (
-    <section id="sponsors" className="py-24 px-6 text-center bg-[#0d0d1a]">
-      <p className="text-xs font-bold tracking-[4px] uppercase text-[#f5a623] mb-2">Our Sponsor</p>
-      <h2 className="font-bebas gradient-text-white-gold text-center text-[clamp(2rem,6vw,3.5rem)] tracking-wide mb-3">
-        Presented By
-      </h2>
-      <div className="w-14 h-1 bg-gradient-to-r from-[#f5a623] to-red-500 rounded-full mx-auto mb-10" />
+    <section id="sponsors" className="py-20 px-6 bg-white border-t border-gray-100">
+      <div className="max-w-4xl mx-auto text-center">
 
-      <div className="inline-block border-2 border-[#f5a623]/40 rounded-2xl px-16 py-7 bg-[#f5a623]/[0.06] mb-3">
-        <p className="font-bebas text-[#f5a623] text-4xl tracking-widest">Blueridge Residents</p>
-      </div>
-      <p className="text-gray-500 text-sm mb-12">
-        Title Sponsor – Blue Ridge Champions Trophy 2026
-      </p>
+        <p className="text-xs font-bold tracking-[4px] uppercase text-[#0057B7] mb-3">
+          Our Sponsors
+        </p>
+        <h2 className="font-barlow font-black text-[#050c18] uppercase
+                       text-[clamp(1.8rem,4vw,2.8rem)] tracking-wide mb-4">
+          Proudly Supported By
+        </h2>
+        <div className="w-16 h-1.5 rounded-full mx-auto mb-12"
+             style={{ background: "linear-gradient(90deg, #0057B7, #F0B429)" }} />
 
-      <div className="max-w-xl mx-auto border border-dashed border-white/15 rounded-2xl px-6 py-8 bg-white/[0.03]">
-        <h3 className="text-white font-bold text-lg mb-3">🤝 Become a Sponsor or Supporter</h3>
-        <p className="text-gray-400 text-sm leading-relaxed">
-          We&apos;re inviting sponsors and supporters to be a part of this exciting sports celebration
-          and help make it a grand success. Join us in bringing the Blue Ridge community together!
-          Contact any of our coordinators to know more.
+        {/* Title sponsor */}
+        <div className="inline-block">
+          <p className="text-[10px] font-bold uppercase tracking-[3px] text-gray-400 mb-5">
+            Title Sponsor
+          </p>
+          <div className="bg-[#F0F5FF] border-2 border-[#0057B7]/20 rounded-3xl
+                          px-16 py-10 hover:border-[#0057B7]/50 transition-all duration-300
+                          hover:shadow-[0_8px_40px_rgba(0,87,183,0.15)]">
+            <p className="font-barlow font-black text-[#050c18] text-[clamp(1.8rem,4vw,2.5rem)]
+                          uppercase tracking-[3px]">
+              Blueridge Residents
+            </p>
+            <p className="text-gray-400 text-xs tracking-wider mt-2 uppercase font-semibold">
+              Associations
+            </p>
+          </div>
+        </div>
+
+        <p className="text-gray-400 text-xs mt-12 tracking-wider">
+          Interested in sponsoring?{" "}
+          <a href="#contacts" className="text-[#0057B7] font-semibold hover:underline">
+            Contact us →
+          </a>
         </p>
       </div>
     </section>

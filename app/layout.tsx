@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,14 +22,14 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Barlow Condensed (headlines) + Inter (body) + Bebas Neue (kept for Schedule) */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased bg-[#0d0d1a] text-white overflow-x-hidden">
+      <body className="antialiased bg-[#080808] text-white overflow-x-hidden">
         {children}
-        <Analytics />   {/* ← add this */}
       </body>
     </html>
   );
