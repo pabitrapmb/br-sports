@@ -136,7 +136,7 @@ const events: Event[] = [
     accent: "#ef4444",
     subtitle: "Season 3 · 2026",
     status: "tbd",
-    date: "Date TBD",
+    date: "To Be Decided",
     venue: "BR Sports Ground",
     subEvents: [
       {
@@ -166,7 +166,7 @@ const events: Event[] = [
     accent: "#e63946",
     subtitle: "Season 3 · 2026",
     status: "tbd",
-    date: "Date TBD",
+    date: "To Be Decided",
     contacts: [
       { name: "Jitendra", phone: "70309 36272" },
       { name: "Chanchal", phone: "80870 50514" },
@@ -179,7 +179,7 @@ const events: Event[] = [
     accent: "#3a86ff",
     subtitle: "Season 3 · 2026",
     status: "tbd",
-    date: "Date TBD",
+    date: "To Be Decided",
     contacts: [{ name: "Satilal", phone: "99224 59784" }],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
   },
@@ -189,7 +189,7 @@ const events: Event[] = [
     accent: "#4ade80",
     subtitle: "Season 3 · 2026",
     status: "tbd",
-    date: "Date TBD",
+    date: "To Be Decided",
     contacts: [{ name: "Abhishek", phone: "99308 44415" }],
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
   },
@@ -199,7 +199,7 @@ const events: Event[] = [
     accent: "#f5a623",
     subtitle: "Season 3 · 2026",
     status: "tbd",
-    date: "Date TBD",
+    date: "To Be Decided",
     whatsapp: "https://chat.whatsapp.com/BBWiHD9d3I338tpO50LpFZLET",
   },
 ];
