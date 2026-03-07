@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat -ano)",
+      "Bash(ss -tlnp)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(node node_modules/next/dist/bin/next build)",
+      "Bash(taskkill //PID 94588 //F)",
+      "Bash(kill 94588)",
+      "Bash(xargs -I{} taskkill //PID {} //F)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:3000/)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(tasklist)",
+      "Bash(taskkill //F //PID 25580)"
+    ]
+  }
+}
