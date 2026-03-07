@@ -25,7 +25,7 @@ export default function Hero() {
           src="/BRPPL_BG_HiRes.jpg"
           alt=""
           aria-hidden="true"
-          className="w-[90%] h-[90%] object-contain"
+          className="w-full h-full object-cover"
           style={{ opacity: 0.22, filter: "contrast(1.15)" }}
         />
       </div>
