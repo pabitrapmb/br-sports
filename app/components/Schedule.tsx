@@ -228,20 +228,6 @@ function EventCard({ event, isFeatured }: { event: Event; isFeatured?: boolean }
 
   return (
     <div>
-      {/* "Next Up" label row — only for the featured/soonest event */}
-      {isFeatured && (
-        <div className="flex items-center gap-2.5 mb-2 px-1">
-          <span className="relative flex-shrink-0 w-2 h-2">
-            <span className="animate-pulse-ring absolute inset-0 rounded-full bg-[#0057B7]"
-                  style={{ color: "#0057B7" }} />
-            <span className="relative block w-2 h-2 rounded-full bg-[#0057B7]" />
-          </span>
-          <span className="text-[10px] font-black uppercase tracking-[2.5px] text-[#0057B7]">
-            Next Up · {event.date}
-          </span>
-          <div className="flex-1 h-px bg-[#0057B7]/20" />
-        </div>
-      )}
 
     <div
       id={cardId}

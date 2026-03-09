@@ -27,18 +27,21 @@ const benefits = [
 
 export default function Community() {
   return (
-    <section id="community" className="relative py-24 px-6 bg-[#f0fdf4] overflow-hidden">
+    <section id="community" className="relative py-24 px-6 bg-[#0a1628] overflow-hidden">
 
-      {/* Subtle top accent */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-green-100 pointer-events-none" />
+      {/* Depth glows */}
+      <div className="absolute top-0 left-0 w-[500px] h-[400px]
+                      bg-[#25D366]/[0.06] blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[300px]
+                      bg-[#0057B7]/[0.07] blur-[130px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto">
 
         {/* ── Header ── */}
-        <p className="text-center text-[11px] font-bold tracking-[4px] uppercase text-[#16a34a] mb-3">
+        <p className="text-center text-[11px] font-bold tracking-[4px] uppercase text-[#4ade80] mb-3">
           Join the Conversation
         </p>
-        <h2 className="font-barlow font-black text-slate-900 text-center uppercase
+        <h2 className="font-barlow font-black text-white text-center uppercase
                        text-[clamp(2rem,6vw,3.2rem)] tracking-wide mb-4">
           WhatsApp Community
         </h2>
@@ -50,9 +53,9 @@ export default function Community() {
 
           {/* Left — benefits */}
           <div>
-            <p className="text-slate-600 text-sm leading-relaxed mb-8">
+            <p className="text-white/55 text-sm leading-relaxed mb-8">
               Stay in the loop with everything happening at{" "}
-              <span className="text-slate-900 font-semibold">Blue Ridge Champions Trophy 2026.</span>{" "}
+              <span className="text-white font-semibold">Blue Ridge Champions Trophy 2026.</span>{" "}
               One group, the whole community.
             </p>
 
@@ -60,20 +63,22 @@ export default function Community() {
               {benefits.map((b) => (
                 <div
                   key={b.title}
-                  className="rounded-2xl p-4 bg-white border border-slate-100
-                             shadow-[0_2px_8px_rgba(0,0,0,0.05)]
-                             hover:shadow-[0_6px_20px_rgba(0,0,0,0.09)]
-                             hover:-translate-y-0.5 transition-all duration-300 group"
+                  className="rounded-2xl p-4 transition-all duration-300
+                             hover:-translate-y-0.5 group"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
                 >
                   <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center text-lg mb-3
                                 transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: b.color + "14" }}
+                    style={{ background: b.color + "22" }}
                   >
                     {b.icon}
                   </div>
-                  <p className="font-bold text-slate-900 text-sm mb-1">{b.title}</p>
-                  <p className="text-slate-500 text-xs leading-relaxed">{b.desc}</p>
+                  <p className="font-bold text-white text-sm mb-1">{b.title}</p>
+                  <p className="text-white/45 text-xs leading-relaxed">{b.desc}</p>
                 </div>
               ))}
             </div>

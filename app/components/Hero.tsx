@@ -19,20 +19,22 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: "#0a1628" }}
     >
-      {/* Full-bleed background logo watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+      {/* Full-bleed venue background */}
+      <div className="absolute inset-0 pointer-events-none select-none">
         <img
           src="/BRPPL_BG_HiRes.jpg"
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
-          style={{ opacity: 0.18, filter: "contrast(1.1) saturate(0.9)" }}
+          style={{ opacity: 0.55, filter: "contrast(1.05) saturate(0.8)" }}
         />
+        {/* Multi-layer gradient overlay: dark top → semi-transparent centre → very dark bottom */}
+        <div className="absolute inset-0"
+             style={{ background: "linear-gradient(to bottom, #0a1628 0%, rgba(10,22,40,0.60) 35%, rgba(10,22,40,0.60) 65%, #0a1628 100%)" }} />
+        {/* Subtle radial vignette for centre content focus */}
+        <div className="absolute inset-0"
+             style={{ background: "radial-gradient(ellipse 75% 65% at 50% 45%, transparent 20%, rgba(10,22,40,0.55) 100%)" }} />
       </div>
-
-      {/* Radial gradient overlay — adds depth */}
-      <div className="absolute inset-0 pointer-events-none"
-           style={{ background: "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, #0a1628 100%)" }} />
 
       {/* Left-side blue glow */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[480px] h-[560px]
