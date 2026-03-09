@@ -1,23 +1,33 @@
-import { redirect } from "next/navigation";
 import { createClient } from "@/app/lib/supabase/server";
+
+const SUPABASE_CONFIGURED =
+  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  process.env.NEXT_PUBLIC_SUPABASE_URL !== "https://placeholder.supabase.co";
 
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  // Skip auth entirely when Supabase is not yet configured
+  let profile: { is_admin: boolean; full_name: string | null } | null = null;
 
-  if (!user) redirect("/");
+  if (SUPABASE_CONFIGURED) {
+    const { redirect } = await import("next/navigation");
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("is_admin, full_name")
-    .eq("id", user.id)
-    .single();
+    if (!user) { redirect("/"); return; }
 
-  if (!profile?.is_admin) redirect("/");
+    const { data } = await supabase
+      .from("profiles")
+      .select("is_admin, full_name")
+      .eq("id", user.id)
+      .single();
+
+    if (!data?.is_admin) redirect("/");
+    profile = data;
+  }
 
   return (
     <div className="min-h-screen bg-[#f1f5f9]">
@@ -40,7 +50,7 @@ export default async function AdminLayout({
           </div>
           <div className="flex items-center gap-3">
             <span className="text-white/40 text-xs hidden sm:block">
-              {profile.full_name ?? user.email?.split("@")[0]}
+              {profile?.full_name ?? "Admin"}
             </span>
             <a href="/"
                className="px-3 py-1.5 rounded-lg text-white/50 text-xs font-semibold
