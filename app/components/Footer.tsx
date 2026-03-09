@@ -4,10 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#080e1c] relative overflow-hidden">
 
-      {/* Olympic 5-colour stripe at very top */}
-      <div className="olympic-stripe" />
-
-      {/* Ghost logo watermark */}
+{/* Ghost logo watermark */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
         <img
           src="/BRPPL_BG_HiRes.jpg"

@@ -104,10 +104,7 @@ export default function Navbar() {
       <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
 
       <header className="fixed top-0 w-full z-50">
-        {/* Olympic 5-colour stripe */}
-        <div className="olympic-stripe" />
-
-        <nav
+<nav
           className={`bg-white transition-all duration-300
             ${scrolled
               ? "shadow-[0_2px_16px_rgba(0,0,0,0.10)] border-b border-slate-100"
